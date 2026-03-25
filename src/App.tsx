@@ -9,11 +9,79 @@ import {
   Crosshair,
   FileText,
   Lock,
+  Loader2,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
+function CharacterPortrait({ name, imageUrl, position = "object-center" }: { name: string, imageUrl: string, position?: string }) {
+  return (
+    <img 
+      src={imageUrl} 
+      alt={name} 
+      className={`h-full w-full ${position} object-cover grayscale contrast-125 transition-all group-hover:grayscale-0 group-hover:contrast-100`}
+      referrerPolicy="no-referrer"
+      onError={(e) => {
+        // Fallback if the image fails to load
+        (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1514565131-fce0801e5785?q=80&w=800&auto=format&fit=crop';
+      }}
+    />
+  );
+}
+
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isBookOpen, setIsBookOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [isFlipping, setIsFlipping] = useState(false);
+
+  const diaryPages = [
+    {
+      left: {
+        title: "Manchester, Inverno de 1919.",
+        content: "O governo nos deu bronze pelo nosso sangue. Hoje, fervemos a honra deles no cadinho de Ancoats."
+      },
+      right: {
+        content: "A cruz de Thomas derreteu primeiro. A minha eu guardei para a mesa de Blackwood."
+      }
+    },
+    {
+      left: {
+        content: "A guerra acabou em Flandres, mas nas ruas de Manchester, nós acabamos de forjar as nossas próprias regras."
+      },
+      right: {
+        content: "O cheiro de carvão se mistura ao cheiro de ferro fundido. Não há mais volta."
+      }
+    },
+    {
+      left: {
+        content: "Cada medalha derretida é um lembrete. Eles nos esqueceram, mas nós nunca esqueceremos."
+      },
+      right: {
+        content: "Assinado: A. Ashford",
+        isSignature: true
+      }
+    }
+  ];
+
+  const nextPage = () => {
+    if (currentPage < diaryPages.length - 1 && !isFlipping) {
+      setIsFlipping(true);
+      setTimeout(() => {
+        setCurrentPage(prev => prev + 1);
+        setIsFlipping(false);
+      }, 600);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 0 && !isFlipping) {
+      setIsFlipping(true);
+      setTimeout(() => {
+        setCurrentPage(prev => prev - 1);
+        setIsFlipping(false);
+      }, 600);
+    }
+  };
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [feedbackMessage, setFeedbackMessage] = useState('');
@@ -22,20 +90,26 @@ export default function App() {
     {
       name: 'Alec Ashford',
       role: 'O Estrategista',
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/alec%204.jpg', // Link corrigido
+      position: 'object-center', 
       description:
-        'Ex-sargento condecorado que transformou disciplina militar em uma máquina criminosa precisa e silenciosa.',
+        'O herói que Manchester cuspiu de volta das trincheiras. Alec derreteu sua honra militar no cadinho de Ancoats para forjar uma nova lei. Frio como o aço de Flandres e tático como um general do submundo, ele governa o império mais temido da cidade com mãos manchadas de pólvora e carvão.',
     },
     {
-      name: 'Nora Vale',
+      name: 'Audrey Shaw',
       role: 'A Informante',
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/awen.jpg', // Link corrigido
+      position: 'object-top', 
       description:
-        'Dona de um salão clandestino que reúne policiais, políticos e apostadores sob o mesmo teto esfumaçado.',
+        'A aranha no centro de uma teia tecida com sussurros e fumaça. Audrey Shaw sabe quem vai morrer antes mesmo do assassino sacar a arma. Com um sorriso que esconde segredos letais, ela é a inteligência que mantém a Melted Cross um passo à frente da forca.',
     },
     {
-      name: 'Hugh Mercer',
-      role: 'O Cobrador',
+      name: 'Thomas',
+      role: 'O Fiel Escudeiro',
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/thomas%2012.jpg', // Link corrigido
+      position: 'object-center', 
       description:
-        'Sobreviveu às trincheiras e agora cobra cada dívida como se ainda estivesse atravessando terra de ninguém.',
+        'O braço armado da lealdade absoluta. Thomas trocou sua cruz de guerra por uma soqueira de bronze e nunca olhou para trás. Forjado na brutalidade das ruas e batizado no calor da fundição, ele é a sombra letal que garante que a vontade de Alec seja a última palavra em Manchester.',
     },
   ];
 
@@ -44,6 +118,7 @@ export default function App() {
       code: 'Arquivo #001',
       tag: 'Ameaça Urbana',
       title: 'Pânico Defensivo nas Ruas',
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/arquivo1.jpg', // Aguardando seu upload
       description:
         'A polícia local teme homens que sobreviveram à Somme e agora tratam cada beco como uma trincheira.',
     },
@@ -51,6 +126,7 @@ export default function App() {
       code: 'Arquivo #002',
       tag: 'Território',
       title: 'Império de Carvão e Sangue',
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/arquivo2.jpg', // Aguardando seu upload
       description:
         'A Melted Cross avança sobre lugares que o império abandonou, onde a lei chega tarde e sangra cedo.',
     },
@@ -58,6 +134,7 @@ export default function App() {
       code: 'Arquivo #003',
       tag: 'Símbolo',
       title: 'Medalhas Derretidas',
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/arquivo3.jpg', // Aguardando seu upload
       description:
         'Cada lâmina forjada carrega a humilhação de homens descartados depois da guerra.',
     },
@@ -193,12 +270,221 @@ export default function App() {
                 referrerPolicy="no-referrer"
               />
             </div>
-            <div className="absolute -bottom-10 -left-10 h-64 w-64 border border-bronze/20 bg-[#121212] p-8 shadow-2xl md:block hidden">
-              <Skull className="mb-4 text-bronze" size={32} />
-              <h3 className="mb-2 font-serif text-xl font-bold text-white">Melted Cross</h3>
-              <p className="text-sm text-neutral-500">Lâminas forjadas com o bronze de medalhas Victoria Cross derretidas.</p>
-            </div>
           </div>
+        </div>
+      </section>
+
+      {/* Diary / Chapter Preview Section */}
+      <section className="relative border-b border-white/5 py-32 overflow-hidden">
+        {/* Map Background */}
+        <div className="map-background absolute inset-0 z-0" />
+        
+        <div className="mx-auto grid max-w-7xl gap-16 px-6 md:grid-cols-[1.2fr_0.8fr] md:items-center relative z-10">
+          <div className="relative book-container">
+            <span className="mb-4 block text-xs font-black uppercase tracking-[0.4em] text-bronze">Diário de Alec Ashford</span>
+            <h2 className="mb-12 font-serif text-4xl font-bold text-white md:text-5xl">Memórias de Guerra</h2>
+            
+            <AnimatePresence mode="wait">
+              {!isBookOpen ? (
+                /* Book Cover View */
+                <motion.div
+                  key="cover"
+                  initial={{ opacity: 0, scale: 0.9, rotateY: 20 }}
+                  animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                  exit={{ rotateY: -110, opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
+                  className="relative mx-auto max-w-md aspect-[2/3] book-cover group cursor-pointer shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+                  onClick={() => setIsBookOpen(true)}
+                >
+                  {/* 
+                    SUBSTITUA O LINK ABAIXO PELA SUA CAPA REAL:
+                    Exemplo: src="https://i.imgur.com/sua_imagem.jpg"
+                  */}
+                  <img 
+                    src="https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/capa%203.jpg" 
+                    alt="The Melted Cross Real Cover" 
+                    className="book-cover-image"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1598153346810-860daa814c4b?q=80&w=1000&auto=format&fit=crop";
+                    }}
+                  />
+                  <div className="book-cover-overlay" />
+                  <div className="book-ribbon" />
+                  
+                  <div className="absolute inset-0 p-10 flex flex-col justify-end text-white">
+                    <div className="text-center">
+                      <div className="open-hint mb-4">
+                        <div className="mx-auto w-12 h-12 rounded-full border border-white/20 flex items-center justify-center backdrop-blur-md bg-black/30 group-hover:bg-bronze/20 group-hover:border-bronze/40 transition-all duration-500">
+                          <motion.div 
+                            animate={{ x: [0, 5, 0] }} 
+                            transition={{ repeat: Infinity, duration: 1.5 }}
+                            className="w-2 h-2 border-t-2 border-r-2 border-white rotate-45"
+                          />
+                        </div>
+                        <p className="mt-2 text-[10px] font-black uppercase tracking-widest text-white/80 group-hover:text-bronze transition-colors duration-500">Clique para Abrir</p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ) : (
+                /* Diary Content View */
+                <motion.div
+                  key="diary"
+                  initial={{ opacity: 0, scale: 1.1 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <div className="mb-4 text-xs font-black uppercase tracking-widest text-bronze/50 flex items-center justify-center gap-4">
+                    <span className="h-px w-8 bg-bronze/20" />
+                    Toque nas bordas para folhear
+                    <span className="h-px w-8 bg-bronze/20" />
+                  </div>
+                  
+                  <div className="relative mx-auto max-w-4xl aspect-[4/3] md:aspect-[1.6/1] book-container">
+                    <div className="book-wrapper w-full h-full flex relative">
+                      {/* Botão para fechar o livro */}
+                      <button 
+                        onClick={() => setIsBookOpen(false)}
+                        className="absolute -top-12 right-0 text-[10px] font-black uppercase tracking-widest text-bronze/60 hover:text-bronze transition-colors flex items-center gap-2"
+                      >
+                        <span className="w-4 h-px bg-bronze/30" /> Fechar Livro
+                      </button>
+
+                      {/* Left Page (Current Spread) */}
+                      <motion.div 
+                        className="book-page book-page-left w-1/2 h-full p-8 md:p-14 border-r border-black/5 flex flex-col justify-start pt-10 md:pt-14 relative"
+                      >
+                        <div className="book-page-wear" />
+                        <div className="page-burnt-edge" />
+                        <div className="page-stain top-10 left-10 w-40 h-40" />
+                        <div className="page-stain bottom-20 right-10 w-32 h-32 opacity-40" />
+                        
+                        <div className="relative z-10 diary-text text-lg md:text-xl lg:text-2xl leading-relaxed">
+                          {diaryPages[currentPage].left.title && (
+                            <p className="mb-4 font-bold underline decoration-black/20 underline-offset-8">
+                              {diaryPages[currentPage].left.title}
+                            </p>
+                          )}
+                          <p>{diaryPages[currentPage].left.content}</p>
+                        </div>
+
+                        <div className="absolute bottom-6 left-10 text-xs font-handwriting opacity-30">
+                          pág. {currentPage * 2 + 1}
+                        </div>
+                        
+                        {currentPage > 0 && (
+                          <div 
+                            className="page-curl-trigger page-curl-trigger-left" 
+                            onClick={prevPage}
+                          />
+                        )}
+                      </motion.div>
+
+                      {/* Spine */}
+                      <div className="page-spine left-1/2 -translate-x-1/2" />
+
+                      {/* Right Page (Current Spread) */}
+                      <motion.div 
+                        className="book-page w-1/2 h-full p-8 md:p-14 flex flex-col justify-start pt-10 md:pt-14 relative"
+                      >
+                        <div className="book-page-wear" />
+                        <div className="page-burnt-edge" />
+                        <div className="page-stain top-20 right-10 w-48 h-48 opacity-30" />
+                        <div className="page-stain bottom-10 left-10 w-24 h-24" />
+                        
+                        <div className="relative z-10 diary-text text-lg md:text-xl lg:text-2xl leading-relaxed">
+                          <p>{diaryPages[currentPage].right.content}</p>
+                        </div>
+
+                        <div className="absolute bottom-6 right-10 text-xs font-handwriting opacity-30">
+                          pág. {currentPage * 2 + 2}
+                        </div>
+                        
+                        {diaryPages[currentPage].right.isSignature && (
+                          <div className="mt-12 flex justify-end opacity-40 grayscale">
+                            <div className="h-16 w-16 border-2 border-black/30 rounded-full flex items-center justify-center text-[10px] font-black uppercase tracking-tighter text-black/60 rotate-12">
+                              A. Ashford
+                            </div>
+                          </div>
+                        )}
+
+                        {currentPage < diaryPages.length - 1 && (
+                          <div 
+                            className="page-curl-trigger" 
+                            onClick={nextPage}
+                          />
+                        )}
+                      </motion.div>
+
+                      {/* Flipping Page Overlay */}
+                      <AnimatePresence>
+                        {isFlipping && (
+                          <motion.div
+                            initial={{ rotateY: 0 }}
+                            animate={{ rotateY: -180 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.6, ease: "easeInOut" }}
+                            className="absolute top-0 right-0 w-1/2 h-full origin-left z-40 pointer-events-none"
+                            style={{ transformStyle: "preserve-3d" }}
+                          >
+                            {/* Front of flipping page */}
+                            <div className="book-page absolute inset-0 p-8 md:p-14 flex flex-col justify-start pt-10 md:pt-14">
+                              <div className="book-page-wear" />
+                              <div className="page-burnt-edge" />
+                              <div className="relative z-10 diary-text text-lg md:text-xl lg:text-2xl leading-relaxed opacity-20">
+                                <p>{diaryPages[currentPage].right.content}</p>
+                              </div>
+                              {/* Sweeping Shadow */}
+                              <motion.div 
+                                initial={{ opacity: 0, x: -100 }}
+                                animate={{ opacity: [0, 0.3, 0], x: [0, 200, 400] }}
+                                transition={{ duration: 0.6 }}
+                                className="absolute inset-0 bg-black/40 blur-3xl"
+                              />
+                            </div>
+                            
+                            {/* Back of flipping page */}
+                            <div className="book-page book-page-back absolute inset-0 p-8 md:p-14 flex flex-col justify-start pt-10 md:pt-14 overflow-hidden">
+                              <div className="book-page-wear" />
+                              <div className="page-burnt-edge" />
+                              <div className="relative z-10 diary-text text-lg md:text-xl lg:text-2xl leading-relaxed">
+                                <p>{diaryPages[currentPage + 1]?.left.content}</p>
+                              </div>
+                              {/* Back Shadow */}
+                              <motion.div 
+                                initial={{ opacity: 0.3 }}
+                                animate={{ opacity: 0 }}
+                                transition={{ duration: 0.6 }}
+                                className="absolute inset-0 bg-black/20"
+                              />
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          <aside className="border border-bronze/20 bg-bronze/5 p-10 backdrop-blur-sm">
+            <span className="mb-4 block text-xs font-black uppercase tracking-[0.3em] text-bronze">Acesso Restrito</span>
+            <h3 className="mb-6 font-serif text-3xl font-bold text-white">Receba o dossiê e entre na lista antes da massa.</h3>
+            <p className="mb-10 text-sm leading-relaxed text-neutral-500">
+              Esta etapa não pede compra imediata. Ela pede curiosidade, cadastro e retenção até a abertura oficial das vendas.
+            </p>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="btn-bronze flex w-full items-center justify-center gap-3 py-5 text-sm"
+            >
+              Entrar para a Lista VIP
+              <ChevronRight size={18} />
+            </button>
+            <p className="mt-6 text-[10px] font-bold uppercase tracking-widest text-neutral-600">
+              Capítulo 1 + dossiê + aviso prioritário de lançamento.
+            </p>
+          </aside>
         </div>
       </section>
 
@@ -213,15 +499,31 @@ export default function App() {
               <motion.div 
                 key={file.code}
                 whileHover={{ y: -10 }}
-                className="group relative flex flex-col items-start border border-white/5 bg-[#1a1a1a] p-10 text-left transition-all hover:border-bronze/30"
+                className="group relative flex flex-col items-start overflow-hidden border border-white/10 bg-[#1a1a1a] p-10 text-left transition-all hover:border-bronze/40"
               >
-                <div className="mb-8 flex h-12 w-12 items-center justify-center border border-bronze/20 bg-bronze/5 text-bronze">
-                  <FileText size={24} />
+                {/* Background Image with Overlay */}
+                <div className="absolute inset-0 z-0 opacity-30 transition-opacity group-hover:opacity-60">
+                  <img 
+                    src={file.imageUrl} 
+                    alt="" 
+                    className="h-full w-full object-cover grayscale contrast-125"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      // Fallback visual enquanto você não sobe as imagens
+                      (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1436262513933-a0b06755c784?q=80&w=800&auto=format&fit=crop';
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-[#1a1a1a]/60 to-transparent" />
                 </div>
-                <span className="mb-2 text-[10px] font-black uppercase tracking-[0.3em] text-bronze/60">{file.code}</span>
-                <h3 className="mb-4 font-serif text-2xl font-bold text-white">{file.title}</h3>
-                <p className="text-sm leading-relaxed text-neutral-500">{file.description}</p>
-                <div className="mt-8 h-px w-12 bg-bronze/30 transition-all group-hover:w-full" />
+
+                <div className="relative z-10 w-full">
+                  <div className="mb-6 inline-block border border-bronze/40 bg-bronze/5 px-3 py-1 text-[10px] font-black uppercase tracking-[0.3em] text-bronze">
+                    {file.code}
+                  </div>
+                  <h3 className="mb-4 font-serif text-3xl font-bold text-white group-hover:text-bronze">{file.title}</h3>
+                  <p className="text-sm leading-relaxed text-neutral-400">{file.description}</p>
+                  <div className="mt-8 h-px w-full bg-white/5 transition-all group-hover:bg-bronze/30" />
+                </div>
               </motion.div>
             ))}
           </div>
@@ -239,10 +541,8 @@ export default function App() {
           <div className="grid gap-12 md:grid-cols-3">
             {characters.map((char) => (
               <div key={char.name} className="group">
-                <div className="mb-8 aspect-square overflow-hidden border border-white/5 bg-neutral-900 grayscale transition-all group-hover:grayscale-0">
-                  <div className="flex h-full w-full items-center justify-center text-neutral-800">
-                    <Skull size={80} strokeWidth={0.5} />
-                  </div>
+                <div className="mb-8 aspect-[3/4] overflow-hidden border border-white/5 bg-neutral-900 transition-all">
+                  <CharacterPortrait name={char.name} imageUrl={char.imageUrl} position={char.position} />
                 </div>
                 <span className="text-xs font-bold uppercase tracking-widest text-bronze">{char.role}</span>
                 <h3 className="mt-2 font-serif text-3xl font-bold text-white">{char.name}</h3>
