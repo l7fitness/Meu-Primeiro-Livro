@@ -90,7 +90,7 @@ export default function App() {
     {
       name: 'Alec Ashford',
       role: 'O Estrategista',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/alec4.jpg',
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/public/alec4.jpg',
       position: 'object-center', 
       description:
         'O herói que Manchester cuspiu de volta das trincheiras. Alec derreteu sua honra militar no cadinho de Ancoats para forjar uma nova lei. Frio como o aço de Flandres e tático como um general do submundo, ele governa o império mais temido da cidade com mãos manchadas de pólvora e carvão.',
@@ -98,7 +98,7 @@ export default function App() {
     {
       name: 'Audrey Shaw',
       role: 'A Informante',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/awen.jpg',
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/public/awen.jpg',
       position: 'object-top', 
       description:
         'A aranha no centro de uma teia tecida com sussurros e fumaça. Audrey Shaw sabe quem vai morrer antes mesmo do assassino sacar a arma. Com um sorriso que esconde segredos letais, ela é a inteligência que mantém a Melted Cross um passo à frente da forca.',
@@ -106,7 +106,7 @@ export default function App() {
     {
       name: 'Thomas',
       role: 'O Fiel Escudeiro',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/thomas.jpg',
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/public/thomas12.jpg',
       position: 'object-center', 
       description:
         'O braço armado da lealdade absoluta. Thomas trocou sua cruz de guerra por uma soqueira de bronze e nunca olhou para trás. Forjado na brutalidade das ruas e batizado no calor da fundição, ele é a sombra letal que garante que a vontade de Alec seja a última palavra em Manchester.',
@@ -118,7 +118,7 @@ export default function App() {
       code: 'Arquivo #001',
       tag: 'Ameaça Urbana',
       title: 'Pânico Defensivo nas Ruas',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/arquivo1.jpg',
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/public/arquivo1.jpg',
       description:
         'A polícia local teme homens que sobreviveram à Somme e agora tratam cada beco como uma trincheira.',
     },
@@ -126,7 +126,7 @@ export default function App() {
       code: 'Arquivo #002',
       tag: 'Território',
       title: 'Império de Carvão e Sangue',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/arquivo2.jpg',
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/public/arquivo2.jpg',
       description:
         'A Melted Cross avança sobre lugares que o império abandonou, onde a lei chega tarde e sangra cedo.',
     },
@@ -134,7 +134,7 @@ export default function App() {
       code: 'Arquivo #003',
       tag: 'Símbolo',
       title: 'Medalhas Derretidas',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/arquivo3.jpg',
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/public/arquivo3.jpg',
       description:
         'Cada lâmina forjada carrega a humilhação de homens descartados depois da guerra.',
     },
@@ -154,83 +154,96 @@ export default function App() {
   return (
     <div className="noise min-h-screen bg-[#121212] text-[#e0e0e0] font-sans selection:bg-bronze/30 selection:text-white">
       {/* Navigation */}
-      <nav className="fixed top-0 z-40 w-full border-b border-white/5 bg-[#121212]/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-          <div className="flex items-center gap-3 font-serif text-2xl font-black tracking-tighter text-white">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-bronze/30 bg-bronze/10">
-              <Crosshair className="text-bronze" size={20} />
+      <nav className="fixed top-0 z-50 w-full border-b border-white/5 bg-black/80 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:py-5">
+          <div className="flex items-center gap-3 font-serif text-xl font-black tracking-tighter text-white md:text-2xl">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full border border-gold/30 bg-gold/5 md:h-10 md:w-10">
+              <Crosshair className="text-gold" size={18} />
             </div>
             THE MELTED CROSS
           </div>
-          <div className="hidden gap-8 text-xs font-bold uppercase tracking-[0.2em] md:flex">
-            <a href="#universo" className="transition-colors hover:text-bronze">O Universo</a>
-            <a href="#personagens" className="transition-colors hover:text-bronze">Personagens</a>
-            <a href="#arquivos" className="transition-colors hover:text-bronze">Arquivos</a>
+          <div className="hidden gap-8 text-[10px] font-bold uppercase tracking-[0.3em] text-neutral-400 md:flex">
+            <a href="#universo" className="transition-colors hover:text-gold">O Universo</a>
+            <a href="#personagens" className="transition-colors hover:text-gold">Personagens</a>
+            <a href="#arquivos" className="transition-colors hover:text-gold">Arquivos</a>
           </div>
-          <button
+          <button 
             onClick={() => setIsModalOpen(true)}
-            className="btn-bronze text-xs"
+            className="group relative overflow-hidden rounded-full border border-gold/40 bg-gold/5 px-6 py-2 text-[9px] font-bold uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold hover:text-black md:px-8 md:py-2.5 md:text-[10px]"
           >
-            Dossiê VIP
+            <span className="relative z-10">Dossiê VIP</span>
+            <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
           </button>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <header className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-20 text-center">
+      <header className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-24 text-center md:pt-32">
         <div className="vignette absolute inset-0 z-0" />
         
-        <div className="absolute inset-0 z-[-1] opacity-20 grayscale contrast-150">
+        <div className="absolute inset-0 z-[-1] opacity-60 contrast-110">
           <img 
-            src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2000&auto=format&fit=crop" 
+            src="https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/public/herodapagina.jpg" 
             alt="Industrial Manchester" 
             className="h-full w-full object-cover"
             referrerPolicy="no-referrer"
+            onError={(e) => {
+              // Fallback se houver erro no carregamento
+              (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2000&auto=format&fit=crop';
+            }}
           />
         </div>
 
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="relative z-10 flex max-w-5xl flex-col items-center"
+          transition={{ duration: 1.2 }}
+          className="relative z-10 flex w-full max-w-7xl flex-col items-center"
         >
-          <span className="mb-8 flex items-center gap-4 text-xs font-black uppercase tracking-[0.6em] text-bronze">
-            <span className="h-px w-16 bg-bronze/30" />
-            Manchester, 1920
-            <span className="h-px w-16 bg-bronze/30" />
+          <span className="mb-6 flex items-center gap-3 text-[8px] font-black uppercase tracking-[0.5em] text-gold md:mb-10 md:gap-6 md:text-[10px] md:tracking-[0.8em]">
+            <span className="h-px w-8 bg-gold/30 md:w-24" />
+            Manchester, 1920 — O Despertar do Império
+            <span className="h-px w-8 bg-gold/30 md:w-24" />
           </span>
           
-          <h1 className="mb-10 font-serif text-6xl font-black leading-[1.05] text-white md:text-8xl lg:text-9xl">
-            Onde o carvão <br />
-            <span className="italic text-bronze">mancha a alma.</span>
+          <h1 className="mb-8 font-serif text-5xl font-black leading-[1.1] text-white md:mb-12 md:text-9xl lg:text-[11rem] lg:leading-[0.95]">
+            A Honra é <br />
+            <span className="italic text-gold drop-shadow-[0_0_30px_rgba(212,175,55,0.4)]">Forjada no Fogo.</span>
           </h1>
           
-          <p className="mb-14 max-w-3xl text-xl leading-relaxed text-neutral-400 md:text-2xl">
-            Entre as trincheiras de ferro da fumaça e os segredos dos túneis, Alec e Audrey jogam um jogo de lealdade e traição. Descubra o thriller noir que revela o Exército Fantasma.
+          <p className="mb-10 max-w-5xl text-lg leading-relaxed text-neutral-300 md:mb-16 md:text-3xl font-light italic">
+            "Onde o carvão mancha a alma e o destino é escrito em ouro e sangue."
           </p>
 
-          <div className="flex flex-col items-center gap-8 sm:flex-row">
+          <p className="mb-12 max-w-4xl text-sm leading-relaxed text-neutral-400 md:mb-20 md:text-xl">
+            Mergulhe nas sombras de uma Manchester industrial visceral. Uma jornada épica de lealdade inquebrável, traições letais e o despertar de um exército que a história tentou apagar. Você está pronto para cruzar a linha?
+          </p>
+
+          <div className="flex flex-col items-center gap-8 sm:flex-row md:gap-12">
             <button
               onClick={() => setIsModalOpen(true)}
-              className="btn-bronze group flex items-center gap-4 px-12 py-6 text-base"
+              className="group relative flex items-center gap-4 overflow-hidden rounded-full border border-gold/60 bg-transparent px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] text-gold transition-all hover:bg-gold hover:text-black md:px-14 md:py-6 md:text-xs md:tracking-[0.5em]"
             >
-              <BookOpen size={24} />
-              Acessar Arquivos Restritos
-              <ChevronRight size={20} className="transition-transform group-hover:translate-x-2" />
+              <span className="relative z-10 flex items-center gap-3">
+                <BookOpen size={18} />
+                Acessar Arquivos Restritos
+                <ChevronRight size={16} className="transition-transform group-hover:translate-x-1" />
+              </span>
+              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
             </button>
+            
             <a
               href="#universo"
-              className="group flex items-center gap-3 text-sm font-bold uppercase tracking-[0.4em] text-neutral-400 transition-all hover:text-white"
+              className="group relative text-[10px] font-bold uppercase tracking-[0.3em] text-neutral-400 transition-all hover:text-gold md:text-xs md:tracking-[0.5em]"
             >
               Explorar o Universo
-              <div className="h-px w-0 bg-bronze transition-all group-hover:w-12" />
+              <span className="absolute -bottom-2 left-0 h-px w-0 bg-gold/50 transition-all group-hover:w-full" />
             </a>
           </div>
         </motion.div>
 
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce opacity-40">
-          <div className="h-16 w-px bg-gradient-to-b from-bronze to-transparent" />
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-50 md:bottom-16">
+          <div className="h-16 w-px bg-gradient-to-b from-gold to-transparent md:h-24" />
         </div>
       </header>
 
@@ -300,7 +313,7 @@ export default function App() {
                     Exemplo: src="https://i.imgur.com/sua_imagem.jpg"
                   */}
                   <img 
-                    src="https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/capa3.jpg" 
+                    src="https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/public/capa3.jpg" 
                     alt="The Melted Cross Real Cover" 
                     className="book-cover-image"
                     referrerPolicy="no-referrer"
