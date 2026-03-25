@@ -90,7 +90,7 @@ export default function App() {
     {
       name: 'Alec Ashford',
       role: 'O Estrategista',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/alec%204.jpg', // Link corrigido
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/alec 4.jpg',
       position: 'object-center', 
       description:
         'O herói que Manchester cuspiu de volta das trincheiras. Alec derreteu sua honra militar no cadinho de Ancoats para forjar uma nova lei. Frio como o aço de Flandres e tático como um general do submundo, ele governa o império mais temido da cidade com mãos manchadas de pólvora e carvão.',
@@ -98,7 +98,7 @@ export default function App() {
     {
       name: 'Audrey Shaw',
       role: 'A Informante',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/awen.jpg', // Link corrigido
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/awen.jpg',
       position: 'object-top', 
       description:
         'A aranha no centro de uma teia tecida com sussurros e fumaça. Audrey Shaw sabe quem vai morrer antes mesmo do assassino sacar a arma. Com um sorriso que esconde segredos letais, ela é a inteligência que mantém a Melted Cross um passo à frente da forca.',
@@ -106,7 +106,7 @@ export default function App() {
     {
       name: 'Thomas',
       role: 'O Fiel Escudeiro',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/thomas%2012.jpg', // Link corrigido
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/thomas 12.jpg',
       position: 'object-center', 
       description:
         'O braço armado da lealdade absoluta. Thomas trocou sua cruz de guerra por uma soqueira de bronze e nunca olhou para trás. Forjado na brutalidade das ruas e batizado no calor da fundição, ele é a sombra letal que garante que a vontade de Alec seja a última palavra em Manchester.',
@@ -118,7 +118,7 @@ export default function App() {
       code: 'Arquivo #001',
       tag: 'Ameaça Urbana',
       title: 'Pânico Defensivo nas Ruas',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/arquivo1.jpg', // Aguardando seu upload
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/arquivo1.jpg',
       description:
         'A polícia local teme homens que sobreviveram à Somme e agora tratam cada beco como uma trincheira.',
     },
@@ -126,7 +126,7 @@ export default function App() {
       code: 'Arquivo #002',
       tag: 'Território',
       title: 'Império de Carvão e Sangue',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/arquivo2.jpg', // Aguardando seu upload
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/arquivo2.jpg',
       description:
         'A Melted Cross avança sobre lugares que o império abandonou, onde a lei chega tarde e sangra cedo.',
     },
@@ -134,7 +134,7 @@ export default function App() {
       code: 'Arquivo #003',
       tag: 'Símbolo',
       title: 'Medalhas Derretidas',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/arquivo3.jpg', // Aguardando seu upload
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/arquivo3.jpg',
       description:
         'Cada lâmina forjada carrega a humilhação de homens descartados depois da guerra.',
     },
@@ -193,44 +193,44 @@ export default function App() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="relative z-10 flex max-w-4xl flex-col items-center"
+          className="relative z-10 flex max-w-5xl flex-col items-center"
         >
-          <span className="mb-6 flex items-center gap-4 text-xs font-black uppercase tracking-[0.5em] text-bronze">
-            <span className="h-px w-12 bg-bronze/30" />
+          <span className="mb-8 flex items-center gap-4 text-xs font-black uppercase tracking-[0.6em] text-bronze">
+            <span className="h-px w-16 bg-bronze/30" />
             Manchester, 1920
-            <span className="h-px w-12 bg-bronze/30" />
+            <span className="h-px w-16 bg-bronze/30" />
           </span>
           
-          <h1 className="mb-8 font-serif text-5xl font-black leading-[1.1] text-white md:text-7xl lg:text-8xl">
+          <h1 className="mb-10 font-serif text-6xl font-black leading-[1.05] text-white md:text-8xl lg:text-9xl">
             Onde o carvão <br />
             <span className="italic text-bronze">mancha a alma.</span>
           </h1>
           
-          <p className="mb-12 max-w-2xl text-lg leading-relaxed text-neutral-400 md:text-xl">
+          <p className="mb-14 max-w-3xl text-xl leading-relaxed text-neutral-400 md:text-2xl">
             Entre as trincheiras de ferro da fumaça e os segredos dos túneis, Alec e Audrey jogam um jogo de lealdade e traição. Descubra o thriller noir que revela o Exército Fantasma.
           </p>
 
-          <div className="flex flex-col items-center gap-6 sm:flex-row">
+          <div className="flex flex-col items-center gap-8 sm:flex-row">
             <button
               onClick={() => setIsModalOpen(true)}
-              className="btn-bronze group flex items-center gap-3 px-10 py-5 text-sm"
+              className="btn-bronze group flex items-center gap-4 px-12 py-6 text-base"
             >
-              <BookOpen size={20} />
+              <BookOpen size={24} />
               Acessar Arquivos Restritos
-              <ChevronRight size={18} className="transition-transform group-hover:translate-x-1" />
+              <ChevronRight size={20} className="transition-transform group-hover:translate-x-2" />
             </button>
             <a
               href="#universo"
-              className="group flex items-center gap-2 text-xs font-bold uppercase tracking-[0.3em] text-neutral-400 transition-colors hover:text-white"
+              className="group flex items-center gap-3 text-sm font-bold uppercase tracking-[0.4em] text-neutral-400 transition-all hover:text-white"
             >
               Explorar o Universo
-              <div className="h-px w-0 bg-bronze transition-all group-hover:w-8" />
+              <div className="h-px w-0 bg-bronze transition-all group-hover:w-12" />
             </a>
           </div>
         </motion.div>
 
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-30">
-          <div className="h-12 w-px bg-gradient-to-b from-bronze to-transparent" />
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce opacity-40">
+          <div className="h-16 w-px bg-gradient-to-b from-bronze to-transparent" />
         </div>
       </header>
 
@@ -300,7 +300,7 @@ export default function App() {
                     Exemplo: src="https://i.imgur.com/sua_imagem.jpg"
                   */}
                   <img 
-                    src="https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/capa%203.jpg" 
+                    src="https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/capa 3.jpg" 
                     alt="The Melted Cross Real Cover" 
                     className="book-cover-image"
                     referrerPolicy="no-referrer"
