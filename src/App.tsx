@@ -90,7 +90,7 @@ export default function App() {
     {
       name: 'Alec Ashford',
       role: 'O Estrategista',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/alec 4.jpg',
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/alec4.jpg',
       position: 'object-center', 
       description:
         'O herói que Manchester cuspiu de volta das trincheiras. Alec derreteu sua honra militar no cadinho de Ancoats para forjar uma nova lei. Frio como o aço de Flandres e tático como um general do submundo, ele governa o império mais temido da cidade com mãos manchadas de pólvora e carvão.',
@@ -106,7 +106,7 @@ export default function App() {
     {
       name: 'Thomas',
       role: 'O Fiel Escudeiro',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/thomas 12.jpg',
+      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/thomas.jpg',
       position: 'object-center', 
       description:
         'O braço armado da lealdade absoluta. Thomas trocou sua cruz de guerra por uma soqueira de bronze e nunca olhou para trás. Forjado na brutalidade das ruas e batizado no calor da fundição, ele é a sombra letal que garante que a vontade de Alec seja a última palavra em Manchester.',
@@ -300,7 +300,7 @@ export default function App() {
                     Exemplo: src="https://i.imgur.com/sua_imagem.jpg"
                   */}
                   <img 
-                    src="https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/capa 3.jpg" 
+                    src="https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/capa3.jpg" 
                     alt="The Melted Cross Real Cover" 
                     className="book-cover-image"
                     referrerPolicy="no-referrer"
