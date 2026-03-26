@@ -175,9 +175,8 @@ export default function App() {
 
       {/* Hero Section */}
       <header className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-24 text-center md:pt-32">
-        <div className="vignette absolute inset-0 z-0" />
         
-        <div className="absolute inset-0 z-[-1] opacity-60 contrast-110">
+        <div className="absolute inset-0 opacity-60 contrast-110">
           <img 
             src="/herodapagina.jpg" 
             alt="Industrial Manchester" 
@@ -185,6 +184,8 @@ export default function App() {
             referrerPolicy="no-referrer"
           />
         </div>
+        
+        <div className="vignette absolute inset-0" />
 
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
