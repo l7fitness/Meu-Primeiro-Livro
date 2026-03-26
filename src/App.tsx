@@ -86,7 +86,7 @@ export default function App() {
     {
       name: 'Alec Ashford',
       role: 'O Estrategista',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/public/alec4.jpg',
+      imageUrl: 'https://res.cloudinary.com/dfvyj8vy5/image/upload/v1774536449/alec4_avhirj.jpg',
       position: 'object-center', 
       description:
         'O herói que Manchester cuspiu de volta das trincheiras. Alec derreteu sua honra militar no cadinho de Ancoats para forjar uma nova lei. Frio como o aço de Flandres e tático como um general do submundo, ele governa o império mais temido da cidade com mãos manchadas de pólvora e carvão.',
@@ -94,7 +94,7 @@ export default function App() {
     {
       name: 'Audrey Shaw',
       role: 'A Informante',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/public/awen.jpg',
+      imageUrl: 'https://res.cloudinary.com/dfvyj8vy5/image/upload/v1774536449/awen_k6wasa.jpg',
       position: 'object-top', 
       description:
         'A aranha no centro de uma teia tecida com sussurros e fumaça. Audrey Shaw sabe quem vai morrer antes mesmo do assassino sacar a arma. Com um sorriso que esconde segredos letais, ela é a inteligência que mantém a Melted Cross um passo à frente da forca.',
@@ -102,7 +102,7 @@ export default function App() {
     {
       name: 'Thomas',
       role: 'O Fiel Escudeiro',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/public/thomas12.jpg',
+      imageUrl: 'https://res.cloudinary.com/dfvyj8vy5/image/upload/v1774536450/thomas12_wmiona.jpg',
       position: 'object-center', 
       description:
         'O braço armado da lealdade absoluta. Thomas trocou sua cruz de guerra por uma soqueira de bronze e nunca olhou para trás. Forjado na brutalidade das ruas e batizado no calor da fundição, ele é a sombra letal que garante que a vontade de Alec seja a última palavra em Manchester.',
@@ -114,7 +114,7 @@ export default function App() {
       code: 'Arquivo #001',
       tag: 'Ameaça Urbana',
       title: 'Pânico Defensivo nas Ruas',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/public/arquivo1.jpg',
+      imageUrl: 'https://res.cloudinary.com/dfvyj8vy5/image/upload/v1774536449/arquivo1_mkre2p.jpg',
       description:
         'A polícia local teme homens que sobreviveram à Somme e agora tratam cada beco como uma trincheira.',
     },
@@ -122,7 +122,7 @@ export default function App() {
       code: 'Arquivo #002',
       tag: 'Território',
       title: 'Império de Carvão e Sangue',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/public/arquivo2.jpg',
+      imageUrl: 'https://res.cloudinary.com/dfvyj8vy5/image/upload/v1774536449/arquivo2_az05qb.jpg',
       description:
         'A Melted Cross avança sobre lugares que o império abandonou, onde a lei chega tarde e sangra cedo.',
     },
@@ -130,7 +130,7 @@ export default function App() {
       code: 'Arquivo #003',
       tag: 'Símbolo',
       title: 'Medalhas Derretidas',
-      imageUrl: 'https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/public/arquivo3.jpg',
+      imageUrl: 'https://res.cloudinary.com/dfvyj8vy5/image/upload/v1774536449/arquivo3_nl8v73.jpg',
       description:
         'Cada lâmina forjada carrega a humilhação de homens descartados depois da guerra.',
     },
@@ -178,7 +178,7 @@ export default function App() {
         
         <div className="absolute inset-0 opacity-60 contrast-110">
           <img 
-            src="https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/public/herodapagina.jpg" 
+            src="https://res.cloudinary.com/dfvyj8vy5/image/upload/v1774536451/herodapagina_ycuzx8.jpg" 
             alt="Industrial Manchester" 
             className="h-full w-full object-cover"
             referrerPolicy="no-referrer"
@@ -272,12 +272,12 @@ export default function App() {
             </div>
           </div>
           
-          <div className="relative">
-            <div className="aspect-[4/5] overflow-hidden rounded-sm border border-white/10 grayscale contrast-125">
+          <div className="relative flex items-center justify-center">
+            <div className="w-full overflow-hidden rounded-md border border-white/10 shadow-2xl">
               <img 
-                src="https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/public/caderno-alec.jpg" 
+                src="https://res.cloudinary.com/dfvyj8vy5/image/upload/v1774536449/caderno-alec_mceoor.jpg" 
                 alt="Diário de Alec Ashford" 
-                className="h-full w-full object-cover"
+                className="h-auto w-full object-contain"
                 referrerPolicy="no-referrer"
               />
             </div>
@@ -311,7 +311,7 @@ export default function App() {
                     Exemplo: src="https://i.imgur.com/sua_imagem.jpg"
                   */}
                   <img 
-                    src="/capa3.jpg" 
+                    src="https://res.cloudinary.com/dfvyj8vy5/image/upload/v1774536452/capa3_v2ruhc.jpg" 
                     alt="The Melted Cross Real Cover" 
                     className="book-cover-image"
                     referrerPolicy="no-referrer"
