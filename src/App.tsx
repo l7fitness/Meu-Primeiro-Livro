@@ -272,39 +272,14 @@ export default function App() {
             </div>
           </div>
           
-          <div className="relative">
-            <div className="aspect-[4/5] overflow-hidden rounded-sm border border-white/10 grayscale contrast-125 relative">
+          <div className="relative flex items-center justify-center">
+            <div className="w-full overflow-hidden rounded-md border border-white/10 shadow-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1584967918940-a7d51b064268?q=80&w=1000&auto=format&fit=crop" 
-                alt="Noir Atmosphere" 
-                className="h-full w-full object-cover"
+                src="https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/public/caderno-alec.jpg" 
+                alt="Diário de Alec Ashford" 
+                className="h-auto w-full object-contain"
                 referrerPolicy="no-referrer"
               />
-              
-              {/* Texto Manuscrito sobre o Caderno */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                {/* Container que simula a área das duas páginas abertas */}
-                <div className="w-[65%] h-[40%] flex gap-8 mt-12 ml-4">
-                  
-                  {/* Página Esquerda */}
-                  <div className="flex-1 flex flex-col justify-start pt-2 pr-2">
-                    <p className="font-handwriting text-[1.1rem] leading-[1.4] text-[#1a1a1a] opacity-85 mix-blend-multiply -rotate-1">
-                      Eles acharam que a guerra tinha acabado quando assinamos aquele papel em Versalhes. Tolos. A verdadeira guerra não se luta em campos abertos com generais gritando ordens.
-                    </p>
-                  </div>
-
-                  {/* Página Direita */}
-                  <div className="flex-1 flex flex-col justify-start pt-4 pl-2">
-                    <p className="font-handwriting text-[1.1rem] leading-[1.4] text-[#1a1a1a] opacity-85 mix-blend-multiply -rotate-1">
-                      Ela se luta nas sombras, nos becos úmidos de Manchester, onde o carvão mancha a pele. Nós não voltamos para casa. Nós trouxemos o inferno conosco.
-                    </p>
-                    <p className="mt-4 text-right font-handwriting text-[1.3rem] font-bold text-[#1a1a1a] opacity-90 mix-blend-multiply -rotate-1">
-                      — A. Ashford
-                    </p>
-                  </div>
-
-                </div>
-              </div>
             </div>
           </div>
         </div>
