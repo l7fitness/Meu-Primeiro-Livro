@@ -174,17 +174,8 @@ export default function App() {
       </nav>
 
       {/* Hero Section */}
-      <header className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-24 text-center md:pt-32">
+      <header className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-24 text-center md:pt-32 bg-[#0a0a0a]">
         <div className="vignette absolute inset-0 z-0" />
-        
-        <div className="absolute inset-0 z-[-1] opacity-60 contrast-110">
-          <img 
-            src="/herodapagina.jpg" 
-            alt="Industrial Manchester" 
-            className="h-full w-full object-cover"
-            referrerPolicy="no-referrer"
-          />
-        </div>
 
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -194,34 +185,29 @@ export default function App() {
         >
           <span className="mb-6 flex items-center gap-3 text-[8px] font-black uppercase tracking-[0.5em] text-gold md:mb-10 md:gap-6 md:text-[10px] md:tracking-[0.8em]">
             <span className="h-px w-8 bg-gold/30 md:w-24" />
-            Manchester, 1920 — O Despertar do Império
+            Manchester, 1920
             <span className="h-px w-8 bg-gold/30 md:w-24" />
           </span>
           
-          <h1 className="mb-8 font-serif text-5xl font-black leading-[1.1] text-white md:mb-12 md:text-9xl lg:text-[11rem] lg:leading-[0.95]">
-            A Honra é <br />
-            <span className="italic text-gold drop-shadow-[0_0_30px_rgba(212,175,55,0.4)]">Forjada no Fogo.</span>
+          <h1 className="mb-8 font-serif text-5xl font-black leading-[1.1] text-white md:mb-12 md:text-8xl lg:text-[9rem] lg:leading-[0.95]">
+            Onde o carvão <br />
+            <span className="italic text-gold drop-shadow-[0_0_30px_rgba(212,175,55,0.4)]">mancha a alma.</span>
           </h1>
           
-          <p className="mb-10 max-w-5xl text-lg leading-relaxed text-neutral-300 md:mb-16 md:text-3xl font-light italic">
-            "Onde o carvão mancha a alma e o destino é escrito em ouro e sangue."
-          </p>
-
           <p className="mb-12 max-w-4xl text-sm leading-relaxed text-neutral-400 md:mb-20 md:text-xl">
-            Mergulhe nas sombras de uma Manchester industrial visceral. Uma jornada épica de lealdade inquebrável, traições letais e o despertar de um exército que a história tentou apagar. Você está pronto para cruzar a linha?
+            Entre as trincheiras de lama da França e as ruelas de fumaça, Alec e Audrey jogam um jogo de lealdade e traição. Descubra o thriller noir que revela o Distrito Fantasma.
           </p>
 
           <div className="flex flex-col items-center gap-8 sm:flex-row md:gap-12">
             <button
               onClick={() => setIsModalOpen(true)}
-              className="group relative flex items-center gap-4 overflow-hidden rounded-full border border-gold/60 bg-transparent px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] text-gold transition-all hover:bg-gold hover:text-black md:px-14 md:py-6 md:text-xs md:tracking-[0.5em]"
+              className="group relative flex items-center gap-4 overflow-hidden rounded-sm bg-gold px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] text-black transition-all hover:bg-white md:px-14 md:py-6 md:text-xs md:tracking-[0.5em]"
             >
               <span className="relative z-10 flex items-center gap-3">
                 <BookOpen size={18} />
                 Acessar Arquivos Restritos
                 <ChevronRight size={16} className="transition-transform group-hover:translate-x-1" />
               </span>
-              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
             </button>
             
             <a
