@@ -185,6 +185,11 @@ export default function App() {
           />
         </div>
         
+        {/* Overlays para escurecer a imagem e melhorar a leitura do texto */}
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-black/60" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#121212_100%)] opacity-80" />
+        
         <div className="vignette absolute inset-0" />
 
         <motion.div 
