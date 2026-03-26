@@ -12,6 +12,7 @@ import {
   Loader2,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { supabase } from './lib/supabase';
 
 function CharacterPortrait({ name, imageUrl, position = "object-center" }: { name: string, imageUrl: string, position?: string }) {
   return (
@@ -21,6 +22,26 @@ function CharacterPortrait({ name, imageUrl, position = "object-center" }: { nam
       className={`h-full w-full ${position} object-cover grayscale contrast-125 transition-all group-hover:grayscale-0 group-hover:contrast-100`}
       referrerPolicy="no-referrer"
     />
+  );
+}
+
+function MeltedCrossLogo({ className = "w-8 h-8" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 100 100" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path 
+        d="M 42 42 L 15 10 L 85 10 L 58 42 L 90 15 L 90 85 L 58 58 L 85 90 L 15 90 L 42 58 L 10 85 L 10 15 Z M 50 44 A 6 6 0 1 0 50 56 A 6 6 0 1 0 50 44 Z" 
+        fill="currentColor" 
+        fillRule="evenodd" 
+        stroke="currentColor" 
+        strokeWidth="2" 
+        strokeLinejoin="round" 
+      />
+      <path d="M 30 87 Q 30 98 33 98 Q 36 98 36 87 Z" fill="currentColor" />
+      <path d="M 50 87 Q 50 105 54 105 Q 58 105 58 87 Z" fill="currentColor" />
+      <path d="M 75 87 Q 75 96 77 96 Q 79 96 79 87 Z" fill="currentColor" />
+      <path d="M 10 77 Q 10 88 13 88 Q 16 88 16 77 Z" fill="currentColor" />
+      <path d="M 84 77 Q 84 88 87 88 Q 90 88 90 77 Z" fill="currentColor" />
+    </svg>
   );
 }
 
@@ -140,11 +161,32 @@ export default function App() {
     e.preventDefault();
     setStatus('loading');
     
-    // Simulação de envio
-    setTimeout(() => {
+    try {
+      if (!supabase) {
+        throw new Error('Supabase não configurado');
+      }
+
+      const { error } = await supabase
+        .from('leads')
+        .insert([{ email }]);
+
+      if (error) {
+        if (error.code === '23505') {
+          // Unique violation (e-mail já cadastrado)
+          setStatus('success');
+          setFeedbackMessage('Este e-mail já está na nossa lista! Fique de olho na sua caixa de entrada.');
+          return;
+        }
+        throw error;
+      }
+
       setStatus('success');
-      setFeedbackMessage('Dossiê enviado! Verifique sua caixa de entrada.');
-    }, 1500);
+      setFeedbackMessage('Acesso liberado! O 1º Capítulo e seu cupom foram enviados para o seu e-mail.');
+    } catch (err) {
+      console.error('Erro ao salvar e-mail:', err);
+      setStatus('error');
+      setFeedbackMessage('Ocorreu um erro ao tentar salvar seu e-mail. Tente novamente ou verifique se as chaves do Supabase estão configuradas.');
+    }
   };
 
   return (
@@ -154,7 +196,7 @@ export default function App() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:py-5">
           <div className="flex items-center gap-3 font-serif text-xl font-black tracking-tighter text-white md:text-2xl">
             <div className="flex h-9 w-9 items-center justify-center rounded-full border border-gold/30 bg-gold/5 md:h-10 md:w-10">
-              <Crosshair className="text-gold" size={18} />
+              <MeltedCrossLogo className="text-gold w-5 h-5" />
             </div>
             THE MELTED CROSS
           </div>
@@ -167,7 +209,7 @@ export default function App() {
             onClick={() => setIsModalOpen(true)}
             className="group relative overflow-hidden rounded-full border border-gold/40 bg-gold/5 px-6 py-2 text-[9px] font-bold uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold hover:text-black md:px-8 md:py-2.5 md:text-[10px]"
           >
-            <span className="relative z-10">Dossiê VIP</span>
+            <span className="relative z-10">Lista VIP</span>
             <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
           </button>
         </div>
@@ -561,7 +603,7 @@ export default function App() {
       <footer className="border-t border-white/5 bg-[#121212] py-20">
         <div className="mx-auto max-w-7xl px-6 text-center">
           <div className="mb-10 flex items-center justify-center gap-4 font-serif text-3xl font-black tracking-tighter text-white">
-            <Crosshair className="text-bronze" size={32} />
+            <MeltedCrossLogo className="text-bronze w-10 h-10" />
             THE MELTED CROSS
           </div>
           <p className="mb-10 text-sm font-medium uppercase tracking-[0.2em] text-neutral-600">
@@ -612,13 +654,13 @@ export default function App() {
                     <span className="text-bronze">O EXÉRCITO FANTASMA</span>
                   </h2>
                   <p className="font-serif text-lg italic text-neutral-400">
-                    Desbloqueie o mapa dos túneis e a ficha militar de Alec.
+                    Desbloqueie o 1º Capítulo Inédito e um Cupom de Desconto Exclusivo.
                   </p>
                 </div>
 
                 <div className="mb-12 border-y border-white/5 py-8">
                   <p className="text-center text-sm leading-relaxed text-neutral-400 md:text-base">
-                    A guerra de Alec não terminou na França. Abaixo das ruas úmidas de Manchester, um império de carvão e sangue está sendo forjado. Junte-se à lista de informantes de Audrey Shaw e receba o 1º Capítulo Inédito e o Dossiê de Inteligência.
+                    A guerra de Alec não terminou na França. Abaixo das ruas úmidas de Manchester, um império de carvão e sangue está sendo forjado. Junte-se à lista de informantes de Audrey Shaw e receba o 1º Capítulo Inédito e um Cupom Especial para o lançamento do livro.
                   </p>
                 </div>
 
@@ -640,8 +682,11 @@ export default function App() {
                         placeholder="SEU MELHOR E-MAIL"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full border border-white/10 bg-black/50 py-4 pl-12 pr-4 text-sm font-bold tracking-widest text-white focus:border-bronze focus:outline-none"
+                        className={`w-full border ${status === 'error' ? 'border-red-500/50 focus:border-red-500' : 'border-white/10 focus:border-bronze'} bg-black/50 py-4 pl-12 pr-4 text-sm font-bold tracking-widest text-white focus:outline-none`}
                       />
+                      {status === 'error' && (
+                        <p className="mt-2 text-xs text-red-500">{feedbackMessage}</p>
+                      )}
                     </div>
                     
                     <button 
