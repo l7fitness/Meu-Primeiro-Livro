@@ -20,10 +20,6 @@ function CharacterPortrait({ name, imageUrl, position = "object-center" }: { nam
       alt={name} 
       className={`h-full w-full ${position} object-cover grayscale contrast-125 transition-all group-hover:grayscale-0 group-hover:contrast-100`}
       referrerPolicy="no-referrer"
-      onError={(e) => {
-        // Fallback if the image fails to load
-        (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1514565131-fce0801e5785?q=80&w=800&auto=format&fit=crop';
-      }}
     />
   );
 }
@@ -187,10 +183,6 @@ export default function App() {
             alt="Industrial Manchester" 
             className="h-full w-full object-cover"
             referrerPolicy="no-referrer"
-            onError={(e) => {
-              // Fallback se houver erro no carregamento
-              (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2000&auto=format&fit=crop';
-            }}
           />
         </div>
 
@@ -317,9 +309,6 @@ export default function App() {
                     alt="The Melted Cross Real Cover" 
                     className="book-cover-image"
                     referrerPolicy="no-referrer"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1598153346810-860daa814c4b?q=80&w=1000&auto=format&fit=crop";
-                    }}
                   />
                   <div className="book-cover-overlay" />
                   <div className="book-ribbon" />
@@ -521,10 +510,6 @@ export default function App() {
                     alt="" 
                     className="h-full w-full object-cover grayscale contrast-125"
                     referrerPolicy="no-referrer"
-                    onError={(e) => {
-                      // Fallback visual enquanto você não sobe as imagens
-                      (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1436262513933-a0b06755c784?q=80&w=800&auto=format&fit=crop';
-                    }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-[#1a1a1a]/60 to-transparent" />
                 </div>
