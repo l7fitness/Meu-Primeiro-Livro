@@ -272,12 +272,12 @@ export default function App() {
             </div>
           </div>
           
-          <div className="relative">
-            <div className="aspect-[4/5] overflow-hidden rounded-sm border border-white/10 grayscale contrast-125">
+          <div className="relative flex items-center justify-center">
+            <div className="w-full overflow-hidden rounded-md border border-white/10 shadow-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1584967918940-a7d51b064268?q=80&w=1000&auto=format&fit=crop" 
-                alt="Noir Atmosphere" 
-                className="h-full w-full object-cover"
+                src="https://raw.githubusercontent.com/l7fitness/Meu-Primeiro-Livro/main/public/caderno-alec.jpg" 
+                alt="Diário de Alec Ashford" 
+                className="h-auto w-full object-contain"
                 referrerPolicy="no-referrer"
               />
             </div>
