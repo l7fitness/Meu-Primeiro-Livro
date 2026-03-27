@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
 import {
   BookOpen,
   Mail,
@@ -229,7 +230,7 @@ function DossierModal({ isOpen, onClose, onOpenLeadModal }: { isOpen: boolean, o
   );
 }
 
-export default function App() {
+function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDossierOpen, setIsDossierOpen] = useState(false);
   const [email, setEmail] = useState('');
@@ -753,6 +754,99 @@ export default function App() {
           </div>
         )}
       </AnimatePresence>
+
+      <footer className="w-full border-t border-white/10 bg-black/80 py-8 text-center text-xs text-neutral-500">
+        <div className="container mx-auto flex flex-col items-center justify-center gap-4 md:flex-row md:gap-8">
+          <p>© 2026 The Melted Cross. Todos os direitos reservados.</p>
+          <div className="flex gap-4">
+            <Link to="/privacidade" className="hover:text-gold transition-colors">Política de Privacidade</Link>
+            <Link to="/termos" className="hover:text-gold transition-colors">Termos de Uso</Link>
+          </div>
+        </div>
+      </footer>
     </div>
+  );
+}
+
+function PrivacyPolicy() {
+  return (
+    <div className="min-h-screen bg-black text-white font-sans selection:bg-gold selection:text-black">
+      <div className="container mx-auto max-w-3xl px-6 py-24">
+        <Link to="/" className="inline-flex items-center gap-2 text-gold hover:text-white mb-12 transition-colors">
+          <ChevronLeft size={16} />
+          Voltar para a página inicial
+        </Link>
+        <h1 className="font-serif text-4xl font-bold mb-8 text-gold">Política de Privacidade</h1>
+        <div className="space-y-6 text-neutral-300 leading-relaxed">
+          <p>
+            A sua privacidade é importante para nós. É política do <strong>The Melted Cross</strong> respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site.
+          </p>
+          <h2 className="text-xl font-bold text-white mt-8">1. Informações que coletamos</h2>
+          <p>
+            Solicitamos informações pessoais apenas quando realmente precisamos delas para lhe fornecer um serviço (como o envio do Dossiê Visual). Fazemo-lo por meios justos e legais, com o seu conhecimento e consentimento.
+          </p>
+          <h2 className="text-xl font-bold text-white mt-8">2. Uso das informações</h2>
+          <p>
+            Apenas retemos as informações coletadas pelo tempo necessário para fornecer o serviço solicitado. Quando armazenamos dados, protegemos dentro de meios comercialmente aceitáveis para evitar perdas e roubos, bem como acesso, divulgação, cópia, uso ou modificação não autorizados.
+          </p>
+          <h2 className="text-xl font-bold text-white mt-8">3. Compartilhamento de dados</h2>
+          <p>
+            Não compartilhamos informações de identificação pessoal publicamente ou com terceiros, exceto quando exigido por lei ou para processamento de pagamentos através de plataformas seguras (como InfinitePay, Hotmart, etc).
+          </p>
+          <h2 className="text-xl font-bold text-white mt-8">4. Seus direitos</h2>
+          <p>
+            Você é livre para recusar a nossa solicitação de informações pessoais, entendendo que talvez não possamos fornecer alguns dos serviços desejados.
+          </p>
+          <p className="mt-8 text-sm text-neutral-500">
+            Esta política é efetiva a partir de Março de 2026.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TermsOfUse() {
+  return (
+    <div className="min-h-screen bg-black text-white font-sans selection:bg-gold selection:text-black">
+      <div className="container mx-auto max-w-3xl px-6 py-24">
+        <Link to="/" className="inline-flex items-center gap-2 text-gold hover:text-white mb-12 transition-colors">
+          <ChevronLeft size={16} />
+          Voltar para a página inicial
+        </Link>
+        <h1 className="font-serif text-4xl font-bold mb-8 text-gold">Termos de Uso</h1>
+        <div className="space-y-6 text-neutral-300 leading-relaxed">
+          <h2 className="text-xl font-bold text-white mt-8">1. Termos</h2>
+          <p>
+            Ao acessar ao site <strong>The Melted Cross</strong>, concorda em cumprir estes termos de serviço, todas as leis e regulamentos aplicáveis e concorda que é responsável pelo cumprimento de todas as leis locais aplicáveis. Se você não concordar com algum desses termos, está proibido de usar ou acessar este site.
+          </p>
+          <h2 className="text-xl font-bold text-white mt-8">2. Uso de Licença</h2>
+          <p>
+            É concedida permissão para baixar temporariamente uma cópia dos materiais (informações ou software) no site The Melted Cross, apenas para visualização transitória pessoal e não comercial. Esta é a concessão de uma licença, não uma transferência de título.
+          </p>
+          <h2 className="text-xl font-bold text-white mt-8">3. Isenção de responsabilidade</h2>
+          <p>
+            Os materiais no site da The Melted Cross são fornecidos 'como estão'. The Melted Cross não oferece garantias, expressas ou implícitas, e, por este meio, isenta e nega todas as outras garantias, incluindo, sem limitação, garantias implícitas ou condições de comercialização, adequação a um fim específico ou não violação de propriedade intelectual ou outra violação de direitos.
+          </p>
+          <h2 className="text-xl font-bold text-white mt-8">4. Limitações</h2>
+          <p>
+            Em nenhum caso o The Melted Cross ou seus fornecedores serão responsáveis por quaisquer danos (incluindo, sem limitação, danos por perda de dados ou lucro ou devido a interrupção dos negócios) decorrentes do uso ou da incapacidade de usar os materiais em The Melted Cross.
+          </p>
+          <p className="mt-8 text-sm text-neutral-500">
+            Estes termos são efetivos a partir de Março de 2026.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/privacidade" element={<PrivacyPolicy />} />
+      <Route path="/termos" element={<TermsOfUse />} />
+    </Routes>
   );
 }
