@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BookOpen,
   Mail,
@@ -10,6 +10,10 @@ import {
   FileText,
   Lock,
   Loader2,
+  Flame,
+  Droplets,
+  Eye,
+  ChevronLeft
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { supabase } from './lib/supabase';
@@ -27,78 +31,207 @@ function CharacterPortrait({ name, imageUrl, position = "object-center" }: { nam
 
 function MeltedCrossLogo({ className = "w-8 h-8" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 100 100" className={className} xmlns="http://www.w3.org/2000/svg">
-      <path 
-        d="M 42 42 L 15 10 L 85 10 L 58 42 L 90 15 L 90 85 L 58 58 L 85 90 L 15 90 L 42 58 L 10 85 L 10 15 Z M 50 44 A 6 6 0 1 0 50 56 A 6 6 0 1 0 50 44 Z" 
-        fill="currentColor" 
-        fillRule="evenodd" 
-        stroke="currentColor" 
-        strokeWidth="2" 
-        strokeLinejoin="round" 
+    <div className={`${className} flex items-center justify-center overflow-hidden rounded-full`}>
+      <img 
+        src="https://res.cloudinary.com/dfvyj8vy5/image/upload/v1774616475/Croix_de_Guerre_1914_1918_lj6qeo.jpg" 
+        alt="The Melted Cross" 
+        className="w-full h-full object-contain scale-[0.65]"
+        referrerPolicy="no-referrer"
       />
-      <path d="M 30 87 Q 30 98 33 98 Q 36 98 36 87 Z" fill="currentColor" />
-      <path d="M 50 87 Q 50 105 54 105 Q 58 105 58 87 Z" fill="currentColor" />
-      <path d="M 75 87 Q 75 96 77 96 Q 79 96 79 87 Z" fill="currentColor" />
-      <path d="M 10 77 Q 10 88 13 88 Q 16 88 16 77 Z" fill="currentColor" />
-      <path d="M 84 77 Q 84 88 87 88 Q 90 88 90 77 Z" fill="currentColor" />
-    </svg>
+    </div>
+  );
+}
+
+const dossierPages = [
+  {
+    id: 0,
+    type: 'cover',
+    title: 'THE MELTED CROSS',
+    subtitle: 'O Exército Fantasma de Manchester',
+    content: 'Um Dossier Confidencial. Manchester, Inverno de 1919.',
+    icon: <Flame size={48} className="text-gold mb-4" />
+  },
+  {
+    id: 1,
+    type: 'content',
+    title: 'O Império de Lama e Pedra',
+    subtitle: 'O Cenário',
+    content: 'A guerra não terminou nas trincheiras da Europa. Ela apenas mudou de endereço. Manchester respira carvão, chuva, ferrugem e violência represada. As ruas de paralelepípedo brilham molhadas como espelhos negros. Acima da terra, a falsa ordem. Abaixo dela, forjas improvisadas e os fantasmas da guerra preparam-se para retomar o que é seu.',
+    quote: '"Lá fora, a chuva recomeçava a cair sobre os paralelepípedos negros... Mas sob os túneis de carvão, a guerra despertava."',
+    icon: <Droplets size={32} className="text-neutral-500 mb-2" />
+  },
+  {
+    id: 2,
+    type: 'content',
+    title: 'Alec Alves',
+    subtitle: 'O Diabo de Smoking',
+    content: 'Ele regressou dos mortos para liderar o Exército Fantasma. Frio, calculista e calejado pela lama das frentes de batalha. Alec não procura a paz; ele procura o controlo das docas de Salford e das ruas sombrias. Ele sabe que a lealdade tem um preço e que as alianças são forjadas a sangue e pólvora.',
+    quote: '"O tilintar dos copos no escuro foi o único pacto que precisavam firmar."',
+    icon: <Crosshair size={32} className="text-gold mb-2" />
+  },
+  {
+    id: 3,
+    type: 'content',
+    title: 'Audrey Shaw',
+    subtitle: 'A Lâmina Invisível',
+    content: 'Num mundo dominado por homens armados, ela é a excepção letal. Audrey não precisa de gritar para ser ouvida; cada aparição sua altera a temperatura da história. Ela liga os mundos da polícia, das docas e dos rumores. O seu olhar percebe as falhas na armadura de todos os homens ao seu redor.',
+    quote: '"Ela já estava na cidade antes de os homens perceberem que a guerra havia começado."',
+    icon: <Eye size={32} className="text-gold mb-2" />
+  },
+  {
+    id: 4,
+    type: 'content',
+    title: 'Sangue, Bronze e Algodão',
+    subtitle: 'O Conflito',
+    content: 'A Operação Ferrugem e Osso está em marcha. Com as metralhadoras pesadas Lewis roubadas, o nível da disputa elevou-se. Cães de dois mestres rondam a cidade. De um lado, o orgulho ferido de Blackwood; do outro, o implacável Major Thorne. A guerra total vai consumir Manchester na névoa.',
+    quote: '"O exército fantasma exige a sua cidade de volta."',
+    icon: <BookOpen size={32} className="text-neutral-500 mb-2" />
+  }
+];
+
+function DossierModal({ isOpen, onClose, onOpenLeadModal }: { isOpen: boolean, onClose: () => void, onOpenLeadModal: () => void }) {
+  const [currentPage, setCurrentPage] = useState(0);
+
+  useEffect(() => {
+    if (isOpen) setCurrentPage(0);
+  }, [isOpen]);
+
+  if (!isOpen) return null;
+
+  const nextPage = () => {
+    if (currentPage < dossierPages.length - 1) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const page = dossierPages[currentPage];
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+      <div className="absolute inset-0 bg-black/90 backdrop-blur-md" onClick={onClose} />
+      
+      <div className="relative flex w-full max-w-4xl flex-col items-center justify-center font-serif text-neutral-300 overflow-hidden rounded-sm">
+        
+        <button 
+          onClick={onClose}
+          className="absolute right-4 top-4 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white transition-colors hover:bg-gold hover:text-black"
+        >
+          <X size={24} />
+        </button>
+
+        <div className="absolute inset-0 opacity-20 pointer-events-none">
+          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-gold/20 rounded-full mix-blend-screen filter blur-[100px] animate-pulse"></div>
+          <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-neutral-600 rounded-full mix-blend-screen filter blur-[120px]"></div>
+        </div>
+
+        <div className="relative w-full bg-[#121212] border border-white/10 shadow-2xl shadow-black rounded-sm overflow-hidden z-10">
+          
+          <div className="h-1 bg-black w-full flex">
+            {dossierPages.map((p) => (
+              <div 
+                key={p.id} 
+                className={`h-full flex-1 transition-colors duration-500 ${currentPage >= p.id ? 'bg-gold' : 'bg-transparent'}`}
+              />
+            ))}
+          </div>
+
+          <div className="p-8 md:p-16 min-h-[500px] flex flex-col justify-center relative">
+            
+            <div className="absolute top-4 left-4 w-4 h-4 border-t border-l border-gold/30 opacity-50"></div>
+            <div className="absolute top-4 right-4 w-4 h-4 border-t border-r border-gold/30 opacity-50"></div>
+            <div className="absolute bottom-4 left-4 w-4 h-4 border-b border-l border-gold/30 opacity-50"></div>
+            <div className="absolute bottom-4 right-4 w-4 h-4 border-b border-r border-gold/30 opacity-50"></div>
+
+            <div className={`transition-all duration-700 transform ${currentPage === page.id ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+              
+              {page.type === 'cover' ? (
+                <div className="text-center space-y-6">
+                  <div className="flex justify-center">{page.icon}</div>
+                  <h1 className="text-4xl md:text-6xl font-bold tracking-widest text-white uppercase drop-shadow-lg">
+                    {page.title}
+                  </h1>
+                  <p className="text-gold tracking-widest uppercase text-sm md:text-base border-t border-b border-white/10 py-2 inline-block">
+                    {page.subtitle}
+                  </p>
+                  <p className="text-neutral-500 italic mt-8">{page.content}</p>
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  <div className="flex items-center space-x-4 border-b border-white/10 pb-4">
+                    {page.icon}
+                    <div>
+                      <h2 className="text-sm tracking-widest text-gold uppercase">{page.subtitle}</h2>
+                      <h3 className="text-3xl md:text-4xl text-white font-semibold">{page.title}</h3>
+                    </div>
+                  </div>
+                  
+                  <p className="text-lg md:text-xl leading-relaxed text-neutral-400">
+                    {page.content}
+                  </p>
+                  
+                  {page.quote && (
+                    <div className="mt-8 p-6 bg-black/40 border-l-2 border-gold italic text-neutral-300">
+                      {page.quote}
+                    </div>
+                  )}
+                </div>
+              )}
+              
+            </div>
+          </div>
+
+          <div className="bg-black/50 p-4 border-t border-white/10 flex justify-between items-center">
+            <button 
+              onClick={prevPage}
+              disabled={currentPage === 0}
+              className={`flex items-center space-x-2 px-4 py-2 rounded transition-all ${currentPage === 0 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-white/5 text-gold'}`}
+            >
+              <ChevronLeft size={20} />
+              <span className="uppercase tracking-wider text-xs font-bold">Anterior</span>
+            </button>
+            
+            <div className="text-neutral-500 text-xs tracking-widest">
+              {currentPage === 0 ? 'CAPA' : `PÁGINA ${currentPage} DE ${dossierPages.length - 1}`}
+            </div>
+
+            <button 
+              onClick={nextPage}
+              disabled={currentPage === dossierPages.length - 1}
+              className={`flex items-center space-x-2 px-4 py-2 rounded transition-all ${currentPage === dossierPages.length - 1 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-white/5 text-gold'}`}
+            >
+              <span className="uppercase tracking-wider text-xs font-bold">Próxima</span>
+              <ChevronRight size={20} />
+            </button>
+          </div>
+        </div>
+        
+        {currentPage === dossierPages.length - 1 && (
+          <div className="mt-8 animate-fade-in-up w-full max-w-md">
+            <button 
+              onClick={() => {
+                onClose();
+                onOpenLeadModal();
+              }}
+              className="w-full bg-gold hover:bg-white text-black px-8 py-4 rounded-sm font-black tracking-widest uppercase transition-colors shadow-[0_0_20px_rgba(212,175,55,0.3)]"
+            >
+              Ler o Primeiro Capítulo Agora
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isBookOpen, setIsBookOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [isFlipping, setIsFlipping] = useState(false);
-
-  const diaryPages = [
-    {
-      left: {
-        title: "Manchester, Inverno de 1919.",
-        content: "O governo nos deu bronze pelo nosso sangue. Hoje, fervemos a honra deles no cadinho de Ancoats."
-      },
-      right: {
-        content: "A cruz de Thomas derreteu primeiro. A minha eu guardei para a mesa de Blackwood."
-      }
-    },
-    {
-      left: {
-        content: "A guerra acabou em Flandres, mas nas ruas de Manchester, nós acabamos de forjar as nossas próprias regras."
-      },
-      right: {
-        content: "O cheiro de carvão se mistura ao cheiro de ferro fundido. Não há mais volta."
-      }
-    },
-    {
-      left: {
-        content: "Cada medalha derretida é um lembrete. Eles nos esqueceram, mas nós nunca esqueceremos."
-      },
-      right: {
-        content: "Assinado: A. Ashford",
-        isSignature: true
-      }
-    }
-  ];
-
-  const nextPage = () => {
-    if (currentPage < diaryPages.length - 1 && !isFlipping) {
-      setIsFlipping(true);
-      setTimeout(() => {
-        setCurrentPage(prev => prev + 1);
-        setIsFlipping(false);
-      }, 600);
-    }
-  };
-
-  const prevPage = () => {
-    if (currentPage > 0 && !isFlipping) {
-      setIsFlipping(true);
-      setTimeout(() => {
-        setCurrentPage(prev => prev - 1);
-        setIsFlipping(false);
-      }, 600);
-    }
-  };
+  const [isDossierOpen, setIsDossierOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [feedbackMessage, setFeedbackMessage] = useState('');
@@ -174,14 +307,12 @@ export default function App() {
         if (error.code === '23505') {
           // Unique violation (e-mail já cadastrado)
           setStatus('success');
-          setFeedbackMessage('Este e-mail já está na nossa lista! Fique de olho na sua caixa de entrada.');
           return;
         }
         throw error;
       }
 
       setStatus('success');
-      setFeedbackMessage('Acesso liberado! O 1º Capítulo e seu cupom foram enviados para o seu e-mail.');
     } catch (err) {
       console.error('Erro ao salvar e-mail:', err);
       setStatus('error');
@@ -195,8 +326,8 @@ export default function App() {
       <nav className="fixed top-0 z-50 w-full border-b border-white/5 bg-black/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:py-5">
           <div className="flex items-center gap-3 font-serif text-xl font-black tracking-tighter text-white md:text-2xl">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full border border-gold/30 bg-gold/5 md:h-10 md:w-10">
-              <MeltedCrossLogo className="text-gold w-5 h-5" />
+            <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-gold/30 bg-gold/5 md:h-10 md:w-10">
+              <MeltedCrossLogo className="w-full h-full" />
             </div>
             THE MELTED CROSS
           </div>
@@ -259,26 +390,28 @@ export default function App() {
             Mergulhe nas sombras de uma Manchester industrial visceral. Uma jornada épica de lealdade inquebrável, traições letais e o despertar de um exército que a história tentou apagar. Você está pronto para cruzar a linha?
           </p>
 
-          <div className="flex flex-col items-center gap-8 sm:flex-row md:gap-12">
+          <div className="flex flex-col items-center gap-6 sm:flex-row md:gap-8">
+            <a
+              href="https://loja.infinitepay.io/l7fitness/dwn6535-livro---the-melted-cross"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative flex items-center gap-4 overflow-hidden rounded-sm bg-gold px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] text-black transition-all hover:bg-white md:px-12 md:py-5 md:text-xs md:tracking-[0.5em]"
+            >
+              <span className="relative z-10 flex items-center gap-3">
+                Comprar Livro Completo
+              </span>
+            </a>
+            
             <button
               onClick={() => setIsModalOpen(true)}
-              className="group relative flex items-center gap-4 overflow-hidden rounded-full border border-gold/60 bg-transparent px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] text-gold transition-all hover:bg-gold hover:text-black md:px-14 md:py-6 md:text-xs md:tracking-[0.5em]"
+              className="group relative flex items-center gap-4 overflow-hidden rounded-sm border border-gold/60 bg-transparent px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] text-gold transition-all hover:bg-gold hover:text-black md:px-12 md:py-5 md:text-xs md:tracking-[0.5em]"
             >
               <span className="relative z-10 flex items-center gap-3">
                 <BookOpen size={18} />
-                Acessar Arquivos Restritos
-                <ChevronRight size={16} className="transition-transform group-hover:translate-x-1" />
+                Ler 1º Capítulo Grátis
               </span>
               <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
             </button>
-            
-            <a
-              href="#universo"
-              className="group relative text-[10px] font-bold uppercase tracking-[0.3em] text-neutral-400 transition-all hover:text-gold md:text-xs md:tracking-[0.5em]"
-            >
-              Explorar o Universo
-              <span className="absolute -bottom-2 left-0 h-px w-0 bg-gold/50 transition-all group-hover:w-full" />
-            </a>
           </div>
         </motion.div>
 
@@ -337,204 +470,71 @@ export default function App() {
             <span className="mb-4 block text-xs font-black uppercase tracking-[0.4em] text-bronze">Diário de Alec Ashford</span>
             <h2 className="mb-12 font-serif text-4xl font-bold text-white md:text-5xl">Memórias de Guerra</h2>
             
-            <AnimatePresence mode="wait">
-              {!isBookOpen ? (
-                /* Book Cover View */
-                <motion.div
-                  key="cover"
-                  initial={{ opacity: 0, scale: 0.9, rotateY: 20 }}
-                  animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                  exit={{ rotateY: -110, opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
-                  className="relative mx-auto max-w-md aspect-[2/3] book-cover group cursor-pointer shadow-[0_0_50px_rgba(0,0,0,0.5)]"
-                  onClick={() => setIsBookOpen(true)}
-                >
-                  {/* 
-                    SUBSTITUA O LINK ABAIXO PELA SUA CAPA REAL:
-                    Exemplo: src="https://i.imgur.com/sua_imagem.jpg"
-                  */}
-                  <img 
-                    src="https://res.cloudinary.com/dfvyj8vy5/image/upload/v1774536452/capa3_v2ruhc.jpg" 
-                    alt="The Melted Cross Real Cover" 
-                    className="book-cover-image"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="book-cover-overlay" />
-                  <div className="book-ribbon" />
-                  
-                  <div className="absolute inset-0 p-10 flex flex-col justify-end text-white">
-                    <div className="text-center">
-                      <div className="open-hint mb-4">
-                        <div className="mx-auto w-12 h-12 rounded-full border border-white/20 flex items-center justify-center backdrop-blur-md bg-black/30 group-hover:bg-bronze/20 group-hover:border-bronze/40 transition-all duration-500">
-                          <motion.div 
-                            animate={{ x: [0, 5, 0] }} 
-                            transition={{ repeat: Infinity, duration: 1.5 }}
-                            className="w-2 h-2 border-t-2 border-r-2 border-white rotate-45"
-                          />
-                        </div>
-                        <p className="mt-2 text-[10px] font-black uppercase tracking-widest text-white/80 group-hover:text-bronze transition-colors duration-500">Clique para Abrir</p>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ) : (
-                /* Diary Content View */
-                <motion.div
-                  key="diary"
-                  initial={{ opacity: 0, scale: 1.1 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.4 }}
-                >
-                  <div className="mb-4 text-xs font-black uppercase tracking-widest text-bronze/50 flex items-center justify-center gap-4">
-                    <span className="h-px w-8 bg-bronze/20" />
-                    Toque nas bordas para folhear
-                    <span className="h-px w-8 bg-bronze/20" />
-                  </div>
-                  
-                  <div className="relative mx-auto max-w-4xl aspect-[4/3] md:aspect-[1.6/1] book-container">
-                    <div className="book-wrapper w-full h-full flex relative">
-                      {/* Botão para fechar o livro */}
-                      <button 
-                        onClick={() => setIsBookOpen(false)}
-                        className="absolute -top-12 right-0 text-[10px] font-black uppercase tracking-widest text-bronze/60 hover:text-bronze transition-colors flex items-center gap-2"
-                      >
-                        <span className="w-4 h-px bg-bronze/30" /> Fechar Livro
-                      </button>
-
-                      {/* Left Page (Current Spread) */}
+            {/* Book Cover View */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, rotateY: 20 }}
+              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+              className="relative mx-auto max-w-md aspect-[2/3] book-cover group cursor-pointer shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+              onClick={() => setIsDossierOpen(true)}
+            >
+              <img 
+                src="https://res.cloudinary.com/dfvyj8vy5/image/upload/v1774536452/capa3_v2ruhc.jpg" 
+                alt="The Melted Cross Real Cover" 
+                className="book-cover-image"
+                referrerPolicy="no-referrer"
+              />
+              <div className="book-cover-overlay" />
+              
+              <div className="absolute inset-0 p-10 flex flex-col justify-end text-white">
+                <div className="text-center">
+                  <div className="open-hint mb-4">
+                    <div className="mx-auto w-12 h-12 rounded-full border border-white/20 flex items-center justify-center backdrop-blur-md bg-black/30 group-hover:bg-bronze/20 group-hover:border-bronze/40 transition-all duration-500">
                       <motion.div 
-                        className="book-page book-page-left w-1/2 h-full p-8 md:p-14 border-r border-black/5 flex flex-col justify-start pt-10 md:pt-14 relative"
-                      >
-                        <div className="book-page-wear" />
-                        <div className="page-burnt-edge" />
-                        <div className="page-stain top-10 left-10 w-40 h-40" />
-                        <div className="page-stain bottom-20 right-10 w-32 h-32 opacity-40" />
-                        
-                        <div className="relative z-10 diary-text text-lg md:text-xl lg:text-2xl leading-relaxed">
-                          {diaryPages[currentPage].left.title && (
-                            <p className="mb-4 font-bold underline decoration-black/20 underline-offset-8">
-                              {diaryPages[currentPage].left.title}
-                            </p>
-                          )}
-                          <p>{diaryPages[currentPage].left.content}</p>
-                        </div>
-
-                        <div className="absolute bottom-6 left-10 text-xs font-handwriting opacity-30">
-                          pág. {currentPage * 2 + 1}
-                        </div>
-                        
-                        {currentPage > 0 && (
-                          <div 
-                            className="page-curl-trigger page-curl-trigger-left" 
-                            onClick={prevPage}
-                          />
-                        )}
-                      </motion.div>
-
-                      {/* Spine */}
-                      <div className="page-spine left-1/2 -translate-x-1/2" />
-
-                      {/* Right Page (Current Spread) */}
-                      <motion.div 
-                        className="book-page w-1/2 h-full p-8 md:p-14 flex flex-col justify-start pt-10 md:pt-14 relative"
-                      >
-                        <div className="book-page-wear" />
-                        <div className="page-burnt-edge" />
-                        <div className="page-stain top-20 right-10 w-48 h-48 opacity-30" />
-                        <div className="page-stain bottom-10 left-10 w-24 h-24" />
-                        
-                        <div className="relative z-10 diary-text text-lg md:text-xl lg:text-2xl leading-relaxed">
-                          <p>{diaryPages[currentPage].right.content}</p>
-                        </div>
-
-                        <div className="absolute bottom-6 right-10 text-xs font-handwriting opacity-30">
-                          pág. {currentPage * 2 + 2}
-                        </div>
-                        
-                        {diaryPages[currentPage].right.isSignature && (
-                          <div className="mt-12 flex justify-end opacity-40 grayscale">
-                            <div className="h-16 w-16 border-2 border-black/30 rounded-full flex items-center justify-center text-[10px] font-black uppercase tracking-tighter text-black/60 rotate-12">
-                              A. Ashford
-                            </div>
-                          </div>
-                        )}
-
-                        {currentPage < diaryPages.length - 1 && (
-                          <div 
-                            className="page-curl-trigger" 
-                            onClick={nextPage}
-                          />
-                        )}
-                      </motion.div>
-
-                      {/* Flipping Page Overlay */}
-                      <AnimatePresence>
-                        {isFlipping && (
-                          <motion.div
-                            initial={{ rotateY: 0 }}
-                            animate={{ rotateY: -180 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.6, ease: "easeInOut" }}
-                            className="absolute top-0 right-0 w-1/2 h-full origin-left z-40 pointer-events-none"
-                            style={{ transformStyle: "preserve-3d" }}
-                          >
-                            {/* Front of flipping page */}
-                            <div className="book-page absolute inset-0 p-8 md:p-14 flex flex-col justify-start pt-10 md:pt-14">
-                              <div className="book-page-wear" />
-                              <div className="page-burnt-edge" />
-                              <div className="relative z-10 diary-text text-lg md:text-xl lg:text-2xl leading-relaxed opacity-20">
-                                <p>{diaryPages[currentPage].right.content}</p>
-                              </div>
-                              {/* Sweeping Shadow */}
-                              <motion.div 
-                                initial={{ opacity: 0, x: -100 }}
-                                animate={{ opacity: [0, 0.3, 0], x: [0, 200, 400] }}
-                                transition={{ duration: 0.6 }}
-                                className="absolute inset-0 bg-black/40 blur-3xl"
-                              />
-                            </div>
-                            
-                            {/* Back of flipping page */}
-                            <div className="book-page book-page-back absolute inset-0 p-8 md:p-14 flex flex-col justify-start pt-10 md:pt-14 overflow-hidden">
-                              <div className="book-page-wear" />
-                              <div className="page-burnt-edge" />
-                              <div className="relative z-10 diary-text text-lg md:text-xl lg:text-2xl leading-relaxed">
-                                <p>{diaryPages[currentPage + 1]?.left.content}</p>
-                              </div>
-                              {/* Back Shadow */}
-                              <motion.div 
-                                initial={{ opacity: 0.3 }}
-                                animate={{ opacity: 0 }}
-                                transition={{ duration: 0.6 }}
-                                className="absolute inset-0 bg-black/20"
-                              />
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                        animate={{ x: [0, 5, 0] }} 
+                        transition={{ repeat: Infinity, duration: 1.5 }}
+                        className="w-2 h-2 border-t-2 border-r-2 border-white rotate-45"
+                      />
                     </div>
+                    <p className="mt-2 text-[10px] font-black uppercase tracking-widest text-white/80 group-hover:text-bronze transition-colors duration-500">Acessar Dossiê Confidencial</p>
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                </div>
+              </div>
+            </motion.div>
           </div>
 
-          <aside className="border border-bronze/20 bg-bronze/5 p-10 backdrop-blur-sm">
-            <span className="mb-4 block text-xs font-black uppercase tracking-[0.3em] text-bronze">Acesso Restrito</span>
-            <h3 className="mb-6 font-serif text-3xl font-bold text-white">Receba o dossiê e entre na lista antes da massa.</h3>
-            <p className="mb-10 text-sm leading-relaxed text-neutral-500">
-              Esta etapa não pede compra imediata. Ela pede curiosidade, cadastro e retenção até a abertura oficial das vendas.
-            </p>
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="btn-bronze flex w-full items-center justify-center gap-3 py-5 text-sm"
-            >
-              Entrar para a Lista VIP
-              <ChevronRight size={18} />
-            </button>
-            <p className="mt-6 text-[10px] font-bold uppercase tracking-widest text-neutral-600">
-              Capítulo 1 + dossiê + aviso prioritário de lançamento.
-            </p>
-          </aside>
+          <div className="flex flex-col items-center justify-center h-full">
+            <div className="relative w-full max-w-lg overflow-hidden rounded-sm border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] transition-transform duration-700 hover:scale-[1.02]">
+              <img 
+                src="https://res.cloudinary.com/dfvyj8vy5/image/upload/v1774612071/crtiativos_melted_cross_qu4bj1.jpg" 
+                alt="The Melted Cross nas Livrarias" 
+                className="h-auto w-full object-cover" 
+                referrerPolicy="no-referrer"
+              />
+              <div className="pointer-events-none absolute inset-0 rounded-sm ring-1 ring-inset ring-white/10" />
+            </div>
+            
+            <div className="mt-10 w-full max-w-lg flex flex-col items-center">
+              <p className="mb-4 text-center text-sm italic text-neutral-400">
+                "Uma obra-prima sombria de ficção histórica."
+              </p>
+              <a
+                href="https://loja.infinitepay.io/l7fitness/dwn6535-livro---the-melted-cross"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative flex w-full items-center justify-center gap-4 overflow-hidden rounded-sm border border-gold/50 bg-gold/10 px-8 py-5 transition-all hover:bg-gold hover:shadow-[0_0_30px_rgba(212,175,55,0.3)]"
+              >
+                <div className="relative z-10 flex flex-col items-center">
+                  <span className="text-xs font-black uppercase tracking-[0.3em] text-gold transition-colors group-hover:text-black">
+                    Comprar Livro Físico
+                  </span>
+                  <span className="mt-1 text-[10px] font-bold uppercase tracking-widest text-neutral-400 transition-colors group-hover:text-black/70">
+                    Edição de Colecionador • R$ 19,90
+                  </span>
+                </div>
+                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -603,7 +603,7 @@ export default function App() {
       <footer className="border-t border-white/5 bg-[#121212] py-20">
         <div className="mx-auto max-w-7xl px-6 text-center">
           <div className="mb-10 flex items-center justify-center gap-4 font-serif text-3xl font-black tracking-tighter text-white">
-            <MeltedCrossLogo className="text-bronze w-10 h-10" />
+            <MeltedCrossLogo className="w-10 h-10" />
             THE MELTED CROSS
           </div>
           <p className="mb-10 text-sm font-medium uppercase tracking-[0.2em] text-neutral-600">
@@ -617,7 +617,14 @@ export default function App() {
         </div>
       </footer>
 
-      {/* Dossier Modal */}
+      {/* Modal do Dossiê Interativo */}
+      <DossierModal 
+        isOpen={isDossierOpen} 
+        onClose={() => setIsDossierOpen(false)} 
+        onOpenLeadModal={() => setIsModalOpen(true)} 
+      />
+
+      {/* Modal de Captura / Sucesso */}
       <AnimatePresence>
         {isModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -665,12 +672,48 @@ export default function App() {
                 </div>
 
                 {status === 'success' ? (
-                  <div className="flex flex-col items-center py-10 text-center">
-                    <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-bronze/20 text-bronze">
+                  <div className="flex flex-col items-center py-6 text-center">
+                    <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-gold shadow-[0_0_30px_rgba(212,175,55,0.2)]">
                       <Shield size={40} />
                     </div>
-                    <h3 className="mb-2 font-serif text-2xl font-bold text-white">Acesso Concedido</h3>
-                    <p className="text-neutral-500">{feedbackMessage}</p>
+                    <h3 className="mb-4 font-serif text-3xl font-bold text-white">Acesso Concedido</h3>
+                    <p className="mb-8 text-sm leading-relaxed text-neutral-400">
+                      Seu registro foi confirmado. Conforme prometido, aqui estão seus arquivos confidenciais:
+                    </p>
+                    
+                    <div className="w-full max-w-md space-y-4">
+                      {/* Botão de Download */}
+                      <a 
+                        href="#" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="group relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-sm border border-gold/50 bg-gold/10 px-6 py-4 text-xs font-bold uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold hover:text-black md:text-sm"
+                      >
+                        <FileText size={20} />
+                        <span className="relative z-10">Baixar 1º Capítulo (PDF)</span>
+                        <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+                      </a>
+
+                      {/* Cupom de Desconto e Upsell */}
+                      <div className="relative flex w-full flex-col items-center justify-center rounded-sm border border-dashed border-white/20 bg-black/50 p-6">
+                        <span className="mb-2 text-[10px] font-black uppercase tracking-[0.3em] text-neutral-500">Seu Cupom de Desconto (20% OFF)</span>
+                        <div className="font-mono text-2xl font-bold tracking-widest text-white md:text-3xl">
+                          FANTASMA20
+                        </div>
+                        <span className="mt-2 text-center text-xs text-neutral-400">
+                          De R$ 19,90 por apenas <strong className="text-gold">R$ 15,92</strong>.
+                        </span>
+                        
+                        <a 
+                          href="https://loja.infinitepay.io/l7fitness/pny7214-livro---the-melted-cross"
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="mt-6 flex w-full items-center justify-center gap-2 rounded-sm bg-gold px-6 py-4 text-[10px] font-black uppercase tracking-widest text-black transition-all hover:bg-white md:text-xs"
+                        >
+                          Comprar Livro Completo Agora
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 ) : (
                   <form onSubmit={handleSubscribe} className="flex flex-col items-center gap-8">
