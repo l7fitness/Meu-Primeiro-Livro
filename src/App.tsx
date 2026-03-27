@@ -33,9 +33,9 @@ function MeltedCrossLogo({ className = "w-8 h-8" }: { className?: string }) {
   return (
     <div className={`${className} flex items-center justify-center overflow-hidden rounded-full`}>
       <img 
-        src="https://res.cloudinary.com/dfvyj8vy5/image/upload/v1774616475/Croix_de_Guerre_1914_1918_lj6qeo.jpg" 
+        src="https://res.cloudinary.com/dfvyj8vy5/image/upload/v1774620313/favicon_medalha_lrqpxc.png" 
         alt="The Melted Cross" 
-        className="w-full h-full object-contain scale-[0.65]"
+        className="w-full h-full object-contain"
         referrerPolicy="no-referrer"
       />
     </div>
@@ -220,7 +220,7 @@ function DossierModal({ isOpen, onClose, onOpenLeadModal }: { isOpen: boolean, o
               }}
               className="w-full bg-gold hover:bg-white text-black px-8 py-4 rounded-sm font-black tracking-widest uppercase transition-colors shadow-[0_0_20px_rgba(212,175,55,0.3)]"
             >
-              Ler o Primeiro Capítulo Agora
+              Acessar o Dossiê Visual Agora
             </button>
           </div>
         )}
@@ -407,8 +407,8 @@ export default function App() {
               className="group relative flex items-center gap-4 overflow-hidden rounded-sm border border-gold/60 bg-transparent px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] text-gold transition-all hover:bg-gold hover:text-black md:px-12 md:py-5 md:text-xs md:tracking-[0.5em]"
             >
               <span className="relative z-10 flex items-center gap-3">
-                <BookOpen size={18} />
-                Ler 1º Capítulo Grátis
+                <FileText size={18} />
+                Baixar Dossiê Visual Grátis
               </span>
               <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
             </button>
@@ -661,13 +661,13 @@ export default function App() {
                     <span className="text-bronze">O EXÉRCITO FANTASMA</span>
                   </h2>
                   <p className="font-serif text-lg italic text-neutral-400">
-                    Desbloqueie o 1º Capítulo Inédito e um Cupom de Desconto Exclusivo.
+                    Desbloqueie o Dossiê Visual da Gangue e um Cupom de Desconto Exclusivo.
                   </p>
                 </div>
 
                 <div className="mb-12 border-y border-white/5 py-8">
                   <p className="text-center text-sm leading-relaxed text-neutral-400 md:text-base">
-                    A guerra de Alec não terminou na França. Abaixo das ruas úmidas de Manchester, um império de carvão e sangue está sendo forjado. Junte-se à lista de informantes de Audrey Shaw e receba o 1º Capítulo Inédito e um Cupom Especial para o lançamento do livro.
+                    A guerra de Alec não terminou na França. Abaixo das ruas úmidas de Manchester, um império de carvão e sangue está sendo forjado. Junte-se à lista de informantes de Audrey Shaw e receba o Dossiê Visual (Trailer) e um Cupom Especial para o lançamento do livro.
                   </p>
                 </div>
 
@@ -684,13 +684,13 @@ export default function App() {
                     <div className="w-full max-w-md space-y-4">
                       {/* Botão de Download */}
                       <a 
-                        href="#" 
+                        href="https://res.cloudinary.com/dfvyj8vy5/image/upload/v1774622038/THE-MELTED-CROSS_-_FEITO_NO_GAMMA_erkygy.pdf" 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="group relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-sm border border-gold/50 bg-gold/10 px-6 py-4 text-xs font-bold uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold hover:text-black md:text-sm"
                       >
                         <FileText size={20} />
-                        <span className="relative z-10">Baixar 1º Capítulo (PDF)</span>
+                        <span className="relative z-10">Baixar Dossiê Visual (PDF)</span>
                         <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
                       </a>
 
