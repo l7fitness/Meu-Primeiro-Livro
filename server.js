@@ -1,11 +1,18 @@
 import express from 'express';
 import { Resend } from 'resend';
 import { config } from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 config();
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 const app = express();
 app.use(express.json());
+
+// Serve arquivos estáticos do build do Vite
+app.use(express.static(path.join(__dirname, 'dist')));
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = process.env.FROM_EMAIL || 'onboarding@resend.dev';
@@ -158,7 +165,12 @@ app.post('/api/send-email', async (req, res) => {
   }
 });
 
-const PORT = process.env.API_PORT || 4000;
+// Fallback: todas as rotas não-API retornam o index.html (SPA)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
+const PORT = process.env.PORT || process.env.API_PORT || 4000;
 app.listen(PORT, () => {
-  console.log(`✅ API rodando em http://localhost:${PORT}`);
+  console.log(`✅ Servidor rodando em http://localhost:${PORT}`);
 });
