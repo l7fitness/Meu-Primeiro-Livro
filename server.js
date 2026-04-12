@@ -3,6 +3,8 @@ import { Resend } from 'resend';
 import { config } from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { createClient } from '@supabase/supabase-js';
+import { randomUUID } from 'crypto';
 
 config();
 
@@ -15,8 +17,30 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const FROM_EMAIL = process.env.FROM_EMAIL || 'onboarding@resend.dev';
+const FROM_EMAIL = process.env.FROM_EMAIL || 'contato@themeltedcross.site';
 const PDF_URL = 'https://res.cloudinary.com/dfvyj8vy5/image/upload/v1774622038/THE-MELTED-CROSS_-_FEITO_NO_GAMMA_erkygy.pdf';
+const SITE_URL = process.env.SITE_URL || 'https://themeltedcross.site';
+
+const supabase = createClient(
+  process.env.VITE_SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_KEY || process.env.VITE_SUPABASE_ANON_KEY
+);
+
+// Valida token de acesso ao leitor
+app.get('/api/validate-token', async (req, res) => {
+  const { token } = req.query;
+  if (!token) return res.json({ valid: false });
+  try {
+    const { data, error } = await supabase
+      .from('access_tokens')
+      .select('id')
+      .eq('token', token)
+      .single();
+    return res.json({ valid: !error && !!data });
+  } catch {
+    return res.json({ valid: false });
+  }
+});
 
 app.post('/api/send-email', async (req, res) => {
   const { email } = req.body;
@@ -193,6 +217,11 @@ app.post('/api/webhook-infinitepay', async (req, res) => {
       return res.status(200).json({ warning: 'Email não encontrado no payload' });
     }
 
+    // Gera token único de acesso ao leitor
+    const accessToken = randomUUID();
+    await supabase.from('access_tokens').insert([{ token: accessToken, email }]);
+    const readerUrl = `${SITE_URL}/ler?token=${accessToken}`;
+
     const { error } = await resend.emails.send({
       from: FROM_EMAIL,
       to: email,
@@ -209,30 +238,41 @@ app.post('/api/webhook-infinitepay', async (req, res) => {
                 <tr><td align="center" style="padding:40px 40px 20px;">
                   <p style="margin:0 0 8px;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#d4af37;">Compra Confirmada</p>
                   <h1 style="margin:0;font-size:32px;font-weight:900;letter-spacing:6px;text-transform:uppercase;color:#ffffff;">THE MELTED CROSS</h1>
-                  <p style="margin:8px 0 0;font-size:13px;color:#666;letter-spacing:2px;text-transform:uppercase;">Livro Digital — Entrega Imediata</p>
+                  <p style="margin:8px 0 0;font-size:13px;color:#666;letter-spacing:2px;text-transform:uppercase;">Livro Digital — Acesso Liberado</p>
                 </td></tr>
                 <tr><td style="padding:0 40px;"><div style="height:1px;background:linear-gradient(90deg,transparent,#d4af37,transparent);"></div></td></tr>
                 <tr><td style="padding:40px;">
                   <p style="margin:0 0 20px;font-size:15px;line-height:1.8;color:#aaa;">
-                    Seu pagamento foi <strong style="color:#d4af37;">confirmado</strong>. O livro digital está pronto para download.
+                    Seu pagamento foi <strong style="color:#d4af37;">confirmado</strong>. Seu acesso exclusivo ao livro está pronto.
+                  </p>
+                  <p style="margin:0 0 32px;font-size:15px;line-height:1.8;color:#aaa;">
+                    Clique no botão abaixo para começar a ler agora mesmo, diretamente no seu navegador.
                   </p>
                   <table width="100%" cellpadding="0" cellspacing="0"><tr>
                     <td align="center" style="padding:24px 0;">
-                      <a href="${PDF_URL}" target="_blank"
-                        style="display:inline-block;background-color:#d4af37;color:#000000;text-decoration:none;font-size:11px;font-weight:900;letter-spacing:4px;text-transform:uppercase;padding:20px 48px;">
-                        ↓ BAIXAR MEU LIVRO AGORA
+                      <a href="${readerUrl}" target="_blank"
+                        style="display:inline-block;background-color:#d4af37;color:#000000;text-decoration:none;font-size:12px;font-weight:900;letter-spacing:4px;text-transform:uppercase;padding:20px 48px;">
+                        📖 COMEÇAR A LER AGORA
                       </a>
                     </td>
                   </tr></table>
-                  <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:24px;">
+                  <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:12px;"><tr>
+                    <td align="center">
+                      <a href="${PDF_URL}" target="_blank"
+                        style="display:inline-block;background-color:transparent;color:#888;text-decoration:none;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:12px 32px;border:1px solid #333;">
+                        ↓ Baixar PDF
+                      </a>
+                    </td>
+                  </tr></table>
+                  <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:32px;">
                     <tr><td style="border-left:3px solid #d4af37;padding:16px 20px;background-color:#0a0a0a;">
                       <p style="margin:0;font-style:italic;font-size:14px;line-height:1.8;color:#888;">
                         "Onde o carvão mancha a alma e o destino é escrito em ouro e sangue."
                       </p>
                     </td></tr>
                   </table>
-                  <p style="margin:32px 0 0;font-size:13px;line-height:1.8;color:#666;text-align:center;">
-                    Guarde este email. O link de download não expira.
+                  <p style="margin:32px 0 0;font-size:12px;line-height:1.8;color:#555;text-align:center;">
+                    Guarde este email. Seu link de acesso é pessoal e não expira.
                   </p>
                 </td></tr>
                 <tr><td style="padding:0 40px;"><div style="height:1px;background:linear-gradient(90deg,transparent,#2a2a2a,transparent);"></div></td></tr>
