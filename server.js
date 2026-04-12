@@ -128,13 +128,13 @@ app.post('/api/send-email', async (req, res) => {
                           <td align="center" style="padding:24px 24px 16px;">
                             <p style="margin:0 0 8px;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#666;">Seu Cupom Exclusivo — 20% OFF no Livro Digital</p>
                             <p style="margin:0 0 4px;font-size:28px;font-weight:900;letter-spacing:8px;color:#ffffff;font-family:monospace;">FANTASMA20</p>
-                            <p style="margin:0 0 20px;font-size:12px;color:#666;">De R$ 29,90 por apenas <strong style="color:#d4af37;">R$&nbsp;23,92</strong></p>
+                            <p style="margin:0 0 20px;font-size:12px;color:#666;">Por apenas <strong style="color:#d4af37;">R$&nbsp;1,20</strong></p>
 
                             <!-- Botão Digital -->
                             <a href="https://checkout.infinitepay.io/l7fitness/2XxELH26z7"
                               target="_blank"
                               style="display:block;background-color:#d4af37;color:#000000;text-decoration:none;font-size:10px;font-weight:900;letter-spacing:3px;text-transform:uppercase;padding:14px 24px;margin-bottom:10px;">
-                              📖 Comprar Livro Digital — R$ 23,92
+                              📖 Comprar Livro Digital — R$ 1,20
                             </a>
 
                             <!-- Botão Físico -->
