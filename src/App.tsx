@@ -531,7 +531,7 @@ function Home() {
                 "Uma obra-prima sombria de ficção histórica."
               </p>
               <a
-                href="https://loja.infinitepay.io/l7fitness/dwn6535-livro---the-melted-cross"
+                href="https://loja.infinitepay.io/l7fitness/pny7214-livro---the-melted-cross"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative flex w-full items-center justify-center gap-4 overflow-hidden rounded-sm border border-gold/50 bg-gold/10 px-8 py-5 transition-all hover:bg-gold hover:shadow-[0_0_30px_rgba(212,175,55,0.3)]"
