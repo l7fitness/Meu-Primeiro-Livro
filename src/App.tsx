@@ -654,9 +654,9 @@ function Home() {
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              className="dossier-paper relative w-full max-w-2xl overflow-hidden p-1 md:p-2"
+              className="dossier-paper relative w-full max-w-2xl max-h-[90vh] overflow-y-auto p-1 md:p-2"
             >
-              <div className="border border-white/10 bg-[#1a1a1a] p-8 md:p-12">
+              <div className="border border-white/10 bg-[#1a1a1a] p-6 md:p-10">
                 <button 
                   onClick={() => setIsModalOpen(false)}
                   className="absolute top-6 right-6 text-neutral-600 transition-colors hover:text-white"
@@ -664,34 +664,34 @@ function Home() {
                   <X size={24} />
                 </button>
 
-                <div className="mb-12 flex flex-col items-center text-center">
-                  <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full border-2 border-bronze/30 bg-bronze/5">
-                    <Lock className="text-bronze" size={28} />
+                <div className="mb-6 flex flex-col items-center text-center">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full border-2 border-bronze/30 bg-bronze/5">
+                    <Lock className="text-bronze" size={22} />
                   </div>
                   
                   <span className="mb-2 text-[10px] font-black uppercase tracking-[0.5em] text-bronze">Top Secret // Restricted Access</span>
-                  <h2 className="mb-4 font-serif text-3xl font-black text-white md:text-4xl">
+                  <h2 className="mb-3 font-serif text-2xl font-black text-white md:text-3xl">
                     ARQUIVO CONFIDENCIAL: <br />
                     <span className="text-bronze">O EXÉRCITO FANTASMA</span>
                   </h2>
-                  <p className="font-serif text-lg italic text-neutral-400">
+                  <p className="font-serif text-base italic text-neutral-400">
                     Desbloqueie o Dossiê Visual da Gangue e um Cupom de Desconto Exclusivo.
                   </p>
                 </div>
 
-                <div className="mb-12 border-y border-white/5 py-8">
+                <div className="mb-6 border-y border-white/5 py-5">
                   <p className="text-center text-sm leading-relaxed text-neutral-400 md:text-base">
                     A guerra de Alec não terminou na França. Abaixo das ruas úmidas de Manchester, um império de carvão e sangue está sendo forjado. Junte-se à lista de informantes de Audrey Shaw e receba o Dossiê Visual (Trailer) e um Cupom Especial para o lançamento do livro.
                   </p>
                 </div>
 
                 {status === 'success' ? (
-                  <div className="flex flex-col items-center py-6 text-center">
-                    <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-gold shadow-[0_0_30px_rgba(212,175,55,0.2)]">
-                      <Shield size={40} />
+                  <div className="flex flex-col items-center py-4 text-center">
+                    <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-gold shadow-[0_0_30px_rgba(212,175,55,0.2)]">
+                      <Shield size={30} />
                     </div>
-                    <h3 className="mb-4 font-serif text-3xl font-bold text-white">Acesso Concedido</h3>
-                    <p className="mb-8 text-sm leading-relaxed text-neutral-400">
+                    <h3 className="mb-3 font-serif text-2xl font-bold text-white">Acesso Concedido</h3>
+                    <p className="mb-6 text-sm leading-relaxed text-neutral-400">
                       Seu registro foi confirmado. Conforme prometido, aqui estão seus arquivos confidenciais:
                     </p>
                     
