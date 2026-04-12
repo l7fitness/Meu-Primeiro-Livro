@@ -5,7 +5,6 @@ import { useSearchParams } from 'react-router-dom';
 import {
   ChevronLeft,
   ChevronRight,
-  Download,
   ZoomIn,
   ZoomOut,
   Maximize2,
@@ -22,7 +21,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 const PDF_URL =
-  'https://res.cloudinary.com/dfvyj8vy5/image/upload/v1774622038/THE-MELTED-CROSS_-_FEITO_NO_GAMMA_erkygy.pdf';
+  'https://drive.google.com/uc?export=download&id=1Ye8WnnnC8BlCFtcUXgl7Lw0RvDUdRwf2';
 
 type Status = 'validating' | 'valid' | 'invalid';
 
@@ -182,17 +181,6 @@ export default function Reader() {
           >
             <Maximize2 size={16} />
           </button>
-          <a
-            href={PDF_URL}
-            download="The-Melted-Cross.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-2 flex items-center gap-2 rounded-sm bg-gold px-4 py-2 text-[10px] font-black uppercase tracking-wider text-black transition hover:bg-white"
-            title="Baixar PDF"
-          >
-            <Download size={13} />
-            <span className="hidden sm:inline">Baixar</span>
-          </a>
         </div>
       </div>
 
