@@ -405,13 +405,14 @@ function Home() {
 
           <div className="flex flex-col items-center gap-6 sm:flex-row md:gap-8">
             <a
-              href="https://loja.infinitepay.io/l7fitness/dwn6535-livro---the-melted-cross"
+              href="https://loja.infinitepay.io/l7fitness/pny7214-livro---the-melted-cross"
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative flex items-center gap-4 overflow-hidden rounded-sm bg-gold px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] text-black transition-all hover:bg-white md:px-12 md:py-5 md:text-xs md:tracking-[0.5em]"
+              className="group relative flex items-center gap-4 overflow-hidden rounded-sm bg-gold px-10 py-4 transition-all hover:bg-white md:px-12 md:py-5"
             >
-              <span className="relative z-10 flex items-center gap-3">
-                Comprar Livro Completo
+              <span className="relative z-10 flex flex-col items-center leading-tight">
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-black md:text-xs">Garantir Minha Cópia</span>
+                <span className="text-[8px] font-bold uppercase tracking-widest text-black/60 md:text-[9px]">Edição de Colecionador · R$ 29,90</span>
               </span>
             </a>
             
