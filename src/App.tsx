@@ -417,16 +417,18 @@ function Home() {
               </span>
             </a>
             
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="group relative flex items-center gap-4 overflow-hidden rounded-sm border border-gold/60 bg-transparent px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] text-gold transition-all hover:bg-gold hover:text-black md:px-12 md:py-5 md:text-xs md:tracking-[0.5em]"
+            <a
+              href="https://checkout.infinitepay.io/l7fitness/2XxELH26z7"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative flex items-center gap-4 overflow-hidden rounded-sm border border-gold/60 bg-transparent px-10 py-4 transition-all hover:bg-gold hover:text-black md:px-12 md:py-5"
             >
-              <span className="relative z-10 flex items-center gap-3">
-                <FileText size={18} />
-                Baixar Dossiê Visual Grátis
+              <span className="relative z-10 flex flex-col items-center leading-tight">
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-gold group-hover:text-black md:text-xs">Comprar Livro Digital</span>
+                <span className="text-[8px] font-bold uppercase tracking-widest text-gold/60 group-hover:text-black/60 md:text-[9px]">Acesso Imediato · R$ 23,92</span>
               </span>
               <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-            </button>
+            </a>
           </div>
         </motion.div>
 
