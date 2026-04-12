@@ -64,7 +64,7 @@ const dossierPages = [
   {
     id: 2,
     type: 'content',
-    title: 'Alec Alves',
+    title: 'Alec Ashford',
     subtitle: 'O Diabo de Smoking',
     content: 'Ele regressou dos mortos para liderar o Exército Fantasma. Frio, calculista e calejado pela lama das frentes de batalha. Alec não procura a paz; ele procura o controlo das docas de Salford e das ruas sombrias. Ele sabe que a lealdade tem um preço e que as alianças são forjadas a sangue e pólvora.',
     quote: '"O tilintar dos copos no escuro foi o único pacto que precisavam firmar."',
@@ -302,16 +302,28 @@ function Home() {
 
       const { error } = await supabase
         .from('leads')
-        .insert([{ email }]);
+        .insert([{ email, origem: 'melted_cross' }]);
 
       if (error) {
         if (error.code === '23505') {
-          // Unique violation (e-mail já cadastrado)
+          // Unique violation (e-mail já cadastrado) — envia email mesmo assim
+          await fetch('/api/send-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email }),
+          });
           setStatus('success');
           return;
         }
         throw error;
       }
+
+      // Envia email de boas-vindas com o dossiê
+      await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
 
       setStatus('success');
     } catch (err) {
@@ -529,7 +541,7 @@ function Home() {
                     Comprar Livro Físico
                   </span>
                   <span className="mt-1 text-[10px] font-bold uppercase tracking-widest text-neutral-400 transition-colors group-hover:text-black/70">
-                    Edição de Colecionador • R$ 19,90
+                    Edição de Colecionador • R$ 29,90
                   </span>
                 </div>
                 <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
@@ -697,21 +709,21 @@ function Home() {
 
                       {/* Cupom de Desconto e Upsell */}
                       <div className="relative flex w-full flex-col items-center justify-center rounded-sm border border-dashed border-white/20 bg-black/50 p-6">
-                        <span className="mb-2 text-[10px] font-black uppercase tracking-[0.3em] text-neutral-500">Seu Cupom de Desconto (20% OFF)</span>
+                        <span className="mb-2 text-[10px] font-black uppercase tracking-[0.3em] text-neutral-500">Cupom 20% OFF — Livro Digital</span>
                         <div className="font-mono text-2xl font-bold tracking-widest text-white md:text-3xl">
                           FANTASMA20
                         </div>
                         <span className="mt-2 text-center text-xs text-neutral-400">
-                          De R$ 19,90 por apenas <strong className="text-gold">R$ 15,92</strong>.
+                          De R$ 29,90 por apenas <strong className="text-gold">R$ 23,92</strong>.
                         </span>
                         
                         <a 
-                          href="https://loja.infinitepay.io/l7fitness/pny7214-livro---the-melted-cross"
+                          href="https://loja.infinitepay.io/l7fitness/dwn6535-livro---the-melted-cross"
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="mt-6 flex w-full items-center justify-center gap-2 rounded-sm bg-gold px-6 py-4 text-[10px] font-black uppercase tracking-widest text-black transition-all hover:bg-white md:text-xs"
                         >
-                          Comprar Livro Completo Agora
+                          Comprar Livro Digital Agora
                         </a>
                       </div>
                     </div>
