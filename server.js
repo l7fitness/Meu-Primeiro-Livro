@@ -165,6 +165,99 @@ app.post('/api/send-email', async (req, res) => {
   }
 });
 
+// Webhook da InfinitePay — chamado automaticamente após pagamento aprovado
+app.post('/api/webhook-infinitepay', async (req, res) => {
+  try {
+    const body = req.body;
+    console.log('📦 Webhook InfinitePay recebido:', JSON.stringify(body));
+
+    const status = body.order_status || body.status || '';
+    const isPaid = ['paid', 'approved', 'complete', 'completed'].includes(String(status).toLowerCase());
+
+    if (!isPaid) {
+      return res.status(200).json({ ignored: true, status });
+    }
+
+    // Tenta encontrar o email do comprador em diferentes formatos de payload
+    const email =
+      body.payer_email ||
+      body.customer_email ||
+      body.email ||
+      body.payer?.email ||
+      body.customer?.email ||
+      body.buyer?.email ||
+      null;
+
+    if (!email) {
+      console.warn('⚠️ Webhook: pagamento aprovado mas email não encontrado. Payload:', JSON.stringify(body));
+      return res.status(200).json({ warning: 'Email não encontrado no payload' });
+    }
+
+    const { error } = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: '📖 Seu Livro Digital está aqui — The Melted Cross',
+      html: `
+        <!DOCTYPE html>
+        <html lang="pt-BR">
+        <head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/></head>
+        <body style="margin:0;padding:0;background-color:#0a0a0a;font-family:'Georgia',serif;color:#e0e0e0;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0a0a0a;padding:40px 20px;">
+            <tr><td align="center">
+              <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background-color:#121212;border:1px solid #2a2a2a;">
+                <tr><td style="height:4px;background:linear-gradient(90deg,#d4af37,#b8960c,#d4af37);"></td></tr>
+                <tr><td align="center" style="padding:40px 40px 20px;">
+                  <p style="margin:0 0 8px;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#d4af37;">Compra Confirmada</p>
+                  <h1 style="margin:0;font-size:32px;font-weight:900;letter-spacing:6px;text-transform:uppercase;color:#ffffff;">THE MELTED CROSS</h1>
+                  <p style="margin:8px 0 0;font-size:13px;color:#666;letter-spacing:2px;text-transform:uppercase;">Livro Digital — Entrega Imediata</p>
+                </td></tr>
+                <tr><td style="padding:0 40px;"><div style="height:1px;background:linear-gradient(90deg,transparent,#d4af37,transparent);"></div></td></tr>
+                <tr><td style="padding:40px;">
+                  <p style="margin:0 0 20px;font-size:15px;line-height:1.8;color:#aaa;">
+                    Seu pagamento foi <strong style="color:#d4af37;">confirmado</strong>. O livro digital está pronto para download.
+                  </p>
+                  <table width="100%" cellpadding="0" cellspacing="0"><tr>
+                    <td align="center" style="padding:24px 0;">
+                      <a href="${PDF_URL}" target="_blank"
+                        style="display:inline-block;background-color:#d4af37;color:#000000;text-decoration:none;font-size:11px;font-weight:900;letter-spacing:4px;text-transform:uppercase;padding:20px 48px;">
+                        ↓ BAIXAR MEU LIVRO AGORA
+                      </a>
+                    </td>
+                  </tr></table>
+                  <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:24px;">
+                    <tr><td style="border-left:3px solid #d4af37;padding:16px 20px;background-color:#0a0a0a;">
+                      <p style="margin:0;font-style:italic;font-size:14px;line-height:1.8;color:#888;">
+                        "Onde o carvão mancha a alma e o destino é escrito em ouro e sangue."
+                      </p>
+                    </td></tr>
+                  </table>
+                  <p style="margin:32px 0 0;font-size:13px;line-height:1.8;color:#666;text-align:center;">
+                    Guarde este email. O link de download não expira.
+                  </p>
+                </td></tr>
+                <tr><td style="padding:0 40px;"><div style="height:1px;background:linear-gradient(90deg,transparent,#2a2a2a,transparent);"></div></td></tr>
+                <tr><td align="center" style="padding:24px 40px 40px;">
+                  <p style="margin:0;font-size:11px;color:#444;letter-spacing:2px;text-transform:uppercase;">© 2026 The Melted Cross. Todos os direitos reservados.</p>
+                </td></tr>
+                <tr><td style="height:4px;background:linear-gradient(90deg,#d4af37,#b8960c,#d4af37);"></td></tr>
+              </table>
+            </td></tr>
+          </table>
+        </body>
+        </html>
+      `,
+    });
+
+    if (error) throw error;
+
+    console.log(`✅ Email de compra enviado para: ${email}`);
+    res.status(200).json({ success: true, email });
+  } catch (err) {
+    console.error('❌ Erro no webhook:', err);
+    res.status(500).json({ error: 'Erro ao processar webhook' });
+  }
+});
+
 // Fallback: todas as rotas não-API retornam o index.html (SPA)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
