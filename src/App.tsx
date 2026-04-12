@@ -719,7 +719,7 @@ function Home() {
                         </span>
                         
                         <a 
-                          href="https://loja.infinitepay.io/l7fitness/dwn6535-livro---the-melted-cross"
+                          href="https://checkout.infinitepay.io/l7fitness/2XxELH26z7"
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="mt-6 flex w-full items-center justify-center gap-2 rounded-sm bg-gold px-6 py-4 text-[10px] font-black uppercase tracking-widest text-black transition-all hover:bg-white md:text-xs"

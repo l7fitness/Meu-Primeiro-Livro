@@ -107,7 +107,7 @@ app.post('/api/send-email', async (req, res) => {
                             <p style="margin:0 0 20px;font-size:12px;color:#666;">De R$ 29,90 por apenas <strong style="color:#d4af37;">R$&nbsp;23,92</strong></p>
 
                             <!-- Botão Digital -->
-                            <a href="https://loja.infinitepay.io/l7fitness/dwn6535-livro---the-melted-cross"
+                            <a href="https://checkout.infinitepay.io/l7fitness/2XxELH26z7"
                               target="_blank"
                               style="display:block;background-color:#d4af37;color:#000000;text-decoration:none;font-size:10px;font-weight:900;letter-spacing:3px;text-transform:uppercase;padding:14px 24px;margin-bottom:10px;">
                               📖 Comprar Livro Digital — R$ 23,92
