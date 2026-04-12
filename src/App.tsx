@@ -716,7 +716,7 @@ function Home() {
                           FANTASMA20
                         </div>
                         <span className="mt-2 text-center text-xs text-neutral-400">
-                          Por apenas <strong className="text-gold">R$ 1,20</strong>.
+                          De R$ 29,90 por apenas <strong className="text-gold">R$ 23,92</strong>.
                         </span>
                         
                         <a 
