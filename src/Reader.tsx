@@ -21,7 +21,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 const PDF_URL =
-  'https://drive.google.com/uc?export=download&id=1Ye8WnnnC8BlCFtcUXgl7Lw0RvDUdRwf2';
+  'https://drive.google.com/uc?export=download&confirm=t&id=1Ye8WnnnC8BlCFtcUXgl7Lw0RvDUdRwf2';
 
 type Status = 'validating' | 'valid' | 'invalid';
 

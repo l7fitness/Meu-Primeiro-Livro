@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = process.env.FROM_EMAIL || 'contato@themeltedcross.site';
-const PDF_URL = 'https://drive.google.com/uc?export=download&id=1Ye8WnnnC8BlCFtcUXgl7Lw0RvDUdRwf2';
+const PDF_URL = 'https://drive.google.com/uc?export=download&confirm=t&id=1Ye8WnnnC8BlCFtcUXgl7Lw0RvDUdRwf2';
 const SITE_URL = process.env.SITE_URL || 'https://themeltedcross.site';
 
 const supabase = createClient(
