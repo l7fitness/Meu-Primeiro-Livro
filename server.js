@@ -219,7 +219,12 @@ app.post('/api/webhook-infinitepay', async (req, res) => {
 
     // Gera token único de acesso ao leitor
     const accessToken = randomUUID();
-    await supabase.from('access_tokens').insert([{ token: accessToken, email }]);
+    const { error: insertError } = await supabase.from('access_tokens').insert([{ token: accessToken, email }]);
+    if (insertError) {
+      console.error('❌ Erro ao salvar token no Supabase:', JSON.stringify(insertError));
+      return res.status(500).json({ error: 'Erro ao salvar token', detail: insertError.message });
+    }
+    console.log(`✅ Token salvo no Supabase: ${accessToken}`);
     const readerUrl = `${SITE_URL}/ler?token=${accessToken}`;
 
     const { error } = await resend.emails.send({
