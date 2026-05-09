@@ -1,42 +1,16 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { Document, Page, pdfjs } from 'react-pdf';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import {
-  ChevronLeft,
-  ChevronRight,
-  ZoomIn,
-  ZoomOut,
-  Maximize2,
-  BookOpen,
-  Lock,
-  Loader2,
-} from 'lucide-react';
-import 'react-pdf/dist/Page/AnnotationLayer.css';
-import 'react-pdf/dist/Page/TextLayer.css';
+import { BookOpen, Lock, Loader2 } from 'lucide-react';
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.mjs',
-  import.meta.url,
-).toString();
+const FLIPBOOK_URL = 'https://heyzine.com/flip-book/4c1b6074be.html';
 
 type Status = 'validating' | 'valid' | 'invalid';
 
 export default function Reader() {
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
-  const PDF_URL = `/api/pdf?token=${encodeURIComponent(token || '')}`;
-
   const [status, setStatus] = useState<Status>('validating');
-  const [numPages, setNumPages] = useState<number>(0);
-  const [pageNumber, setPageNumber] = useState<number>(1);
-  const [scale, setScale] = useState<number>(1.0);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const [direction, setDirection] = useState<'next' | 'prev'>('next');
-  const [isDoublePage, setIsDoublePage] = useState(window.innerWidth >= 1024);
-  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Validate token
   useEffect(() => {
     if (!token) {
       setStatus('invalid');
@@ -47,49 +21,6 @@ export default function Reader() {
       .then((data) => setStatus(data.valid ? 'valid' : 'invalid'))
       .catch(() => setStatus('invalid'));
   }, [token]);
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goNext();
-      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goPrev();
-    };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
-  }, [pageNumber, numPages, isDoublePage]);
-
-  // Responsive double page
-  useEffect(() => {
-    const handler = () => setIsDoublePage(window.innerWidth >= 1024);
-    window.addEventListener('resize', handler);
-    return () => window.removeEventListener('resize', handler);
-  }, []);
-
-  const step = isDoublePage ? 2 : 1;
-
-  const goNext = useCallback(() => {
-    if (pageNumber + step <= numPages) {
-      setDirection('next');
-      setPageNumber((p) => p + step);
-    }
-  }, [pageNumber, numPages, step]);
-
-  const goPrev = useCallback(() => {
-    if (pageNumber - step >= 1) {
-      setDirection('prev');
-      setPageNumber((p) => p - step);
-    }
-  }, [pageNumber, step]);
-
-  const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      containerRef.current?.requestFullscreen();
-      setIsFullscreen(true);
-    } else {
-      document.exitFullscreen();
-      setIsFullscreen(false);
-    }
-  };
 
   if (status === 'validating') {
     return (
@@ -122,21 +53,34 @@ export default function Reader() {
     );
   }
 
-  const variants = {
-    enter: (dir: 'next' | 'prev') => ({
-      x: dir === 'next' ? 80 : -80,
-      opacity: 0,
-    }),
-    center: { x: 0, opacity: 1 },
-    exit: (dir: 'next' | 'prev') => ({
-      x: dir === 'next' ? -80 : 80,
-      opacity: 0,
-    }),
-  };
+  return (
+    <div className="flex h-screen flex-col bg-[#0a0a0a]">
+      {/* Top Bar */}
+      <div className="flex shrink-0 items-center justify-between border-b border-white/5 bg-black/80 px-4 py-3 backdrop-blur-sm">
+        <div className="flex items-center gap-3">
+          <BookOpen size={18} className="text-gold" />
+          <span className="font-serif text-sm font-black uppercase tracking-widest text-white">
+            The Melted Cross
+          </span>
+        </div>
+        <a
+          href="/"
+          className="text-xs font-bold uppercase tracking-widest text-neutral-500 transition hover:text-gold"
+        >
+          ← Voltar ao Site
+        </a>
+      </div>
 
-  const displayPage = isDoublePage && pageNumber % 2 === 0 ? pageNumber - 1 : pageNumber;
-  const rightPage = displayPage + 1;
-  const showRight = isDoublePage && rightPage <= numPages;
+      {/* Flipbook embed */}
+      <iframe
+        src={FLIPBOOK_URL}
+        className="flex-1 w-full border-0"
+        allowFullScreen
+        title="The Melted Cross — Livro Digital"
+      />
+    </div>
+  );
+}
 
   return (
     <div
