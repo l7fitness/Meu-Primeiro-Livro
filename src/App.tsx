@@ -413,7 +413,7 @@ function Home() {
             >
               <span className="relative z-10 flex flex-col items-center leading-tight">
                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-black md:text-xs">Garantir Minha Cópia</span>
-                <span className="text-[8px] font-bold uppercase tracking-widest text-black/60 md:text-[9px]">Edição de Colecionador · R$ 29,90</span>
+                <span className="text-[8px] font-bold uppercase tracking-widest text-black/60 md:text-[9px]">Edição de Colecionador · R$ 39,90</span>
               </span>
             </a>
             
@@ -425,7 +425,7 @@ function Home() {
             >
               <span className="relative z-10 flex flex-col items-center leading-tight">
                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-gold group-hover:text-black md:text-xs">Comprar Livro Digital</span>
-                <span className="text-[8px] font-bold uppercase tracking-widest text-gold/60 group-hover:text-black/60 md:text-[9px]">Acesso Imediato · R$ 23,92</span>
+                <span className="text-[8px] font-bold uppercase tracking-widest text-gold/60 group-hover:text-black/60 md:text-[9px]">Acesso Imediato · R$ 31,92</span>
               </span>
               <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
             </a>
@@ -545,7 +545,7 @@ function Home() {
                     Comprar Livro Físico
                   </span>
                   <span className="mt-1 text-[10px] font-bold uppercase tracking-widest text-neutral-400 transition-colors group-hover:text-black/70">
-                    Edição de Colecionador • R$ 29,90
+                    Edição de Colecionador • R$ 39,90
                   </span>
                 </div>
                 <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
@@ -718,7 +718,7 @@ function Home() {
                           FANTASMA20
                         </div>
                         <span className="mt-2 text-center text-xs text-neutral-400">
-                          De R$ 29,90 por apenas <strong className="text-gold">R$ 23,92</strong>.
+                          De R$ 39,90 por apenas <strong className="text-gold">R$ 31,92</strong>.
                         </span>
                         
                         <a 
