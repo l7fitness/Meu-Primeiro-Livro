@@ -445,9 +445,11 @@ function Home() {
 
           <a
             href="/preview"
-            className="mt-2 text-[10px] font-bold uppercase tracking-[0.25em] text-neutral-500 underline-offset-4 transition-colors hover:text-gold hover:underline"
+            className="group mt-2 flex items-center gap-3 border border-white/10 bg-white/5 px-8 py-3 text-[10px] font-black uppercase tracking-[0.3em] text-neutral-300 transition-all hover:border-gold/40 hover:bg-gold/10 hover:text-gold"
           >
-            Ler Capítulo 1 Grátis →
+            <BookOpen size={13} className="shrink-0 text-gold" />
+            <span>Ler Capítulo 1 Grátis</span>
+            <span className="ml-1 text-gold transition-transform group-hover:translate-x-1">→</span>
           </a>
         </motion.div>
 
