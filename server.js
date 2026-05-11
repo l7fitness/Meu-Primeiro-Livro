@@ -151,7 +151,7 @@ app.post('/api/send-email', async (req, res) => {
                       <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:40px;">
                         <tr>
                           <td align="center" style="padding:8px 0;">
-                            <a href="https://checkout.infinitepay.io/l7fitness/2XxELH26z7"
+                            <a href="https://checkout.infinitepay.io/l7fitness/7Pr9A2NOfQ"
                               target="_blank"
                               style="display:block;background-color:#d4af37;color:#000000;text-decoration:none;font-size:10px;font-weight:900;letter-spacing:3px;text-transform:uppercase;padding:16px 24px;margin-bottom:10px;">
                               📖 Comprar Livro Digital — R$ 29,90

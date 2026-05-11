@@ -429,7 +429,7 @@ function Home() {
             </a>
             
             <a
-              href="https://checkout.infinitepay.io/l7fitness/2XxELH26z7"
+              href="https://checkout.infinitepay.io/l7fitness/7Pr9A2NOfQ"
               target="_blank"
               rel="noopener noreferrer"
               className="group relative flex items-center gap-4 overflow-hidden rounded-sm border border-gold/60 bg-transparent px-10 py-4 transition-all hover:bg-gold hover:text-black md:px-12 md:py-5"
@@ -711,7 +711,7 @@ function Home() {
                     
                     <div className="w-full max-w-md space-y-3">
                       <a
-                        href="https://checkout.infinitepay.io/l7fitness/2XxELH26z7"
+                        href="https://checkout.infinitepay.io/l7fitness/7Pr9A2NOfQ"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-sm bg-gold px-6 py-4 text-[10px] font-black uppercase tracking-widest text-black transition-all hover:bg-white md:text-xs"
