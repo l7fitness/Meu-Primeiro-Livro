@@ -10,7 +10,6 @@ import {
   Skull,
   Shield,
   Crosshair,
-  FileText,
   Lock,
   Loader2,
   Flame,
@@ -711,18 +710,6 @@ function Home() {
                     </p>
                     
                     <div className="w-full max-w-md space-y-4">
-                      {/* Botão de Download */}
-                      <a 
-                        href="https://res.cloudinary.com/dfvyj8vy5/image/upload/v1774622038/THE-MELTED-CROSS_-_FEITO_NO_GAMMA_erkygy.pdf" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="group relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-sm border border-gold/50 bg-gold/10 px-6 py-4 text-xs font-bold uppercase tracking-[0.2em] text-gold transition-all hover:bg-gold hover:text-black md:text-sm"
-                      >
-                        <FileText size={20} />
-                        <span className="relative z-10">Baixar Dossiê Visual (PDF)</span>
-                        <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-                      </a>
-
                       {/* Cupom de Desconto e Upsell */}
                       <div className="relative flex w-full flex-col items-center justify-center rounded-sm border border-dashed border-white/20 bg-black/50 p-6">
                         <span className="mb-2 text-[10px] font-black uppercase tracking-[0.3em] text-neutral-500">Cupom 20% OFF — Livro Digital</span>
