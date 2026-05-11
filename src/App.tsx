@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import Reader from './Reader';
+import MyAccount from './MyAccount';
 import {
   BookOpen,
   Mail,
@@ -862,6 +863,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/ler" element={<Reader />} />
+      <Route path="/minha-conta" element={<MyAccount />} />
       <Route path="/privacidade" element={<PrivacyPolicy />} />
       <Route path="/termos" element={<TermsOfUse />} />
     </Routes>

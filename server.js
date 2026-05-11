@@ -226,6 +226,25 @@ app.post('/api/send-email', async (req, res) => {
   }
 });
 
+// Busca token pelo email — usado na página "Minha Conta"
+app.get('/api/get-token-by-email', async (req, res) => {
+  const { email } = req.query;
+  if (!email) return res.json({ valid: false });
+  try {
+    const { data, error } = await supabase
+      .from('access_tokens')
+      .select('token')
+      .eq('email', email.toLowerCase().trim())
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .single();
+    if (error || !data) return res.json({ valid: false });
+    return res.json({ valid: true, token: data.token });
+  } catch {
+    return res.json({ valid: false });
+  }
+});
+
 // Webhook da InfinitePay — chamado automaticamente após pagamento aprovado
 app.post('/api/webhook-infinitepay', async (req, res) => {
   try {

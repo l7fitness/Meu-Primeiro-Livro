@@ -8,19 +8,28 @@ type Status = 'validating' | 'valid' | 'invalid';
 
 export default function Reader() {
   const [searchParams] = useSearchParams();
-  const token = searchParams.get('token');
   const [status, setStatus] = useState<Status>('validating');
 
   useEffect(() => {
+    // Prioridade: token na URL, depois token salvo no localStorage
+    const token = searchParams.get('token') || localStorage.getItem('reader_token');
     if (!token) {
       setStatus('invalid');
       return;
     }
     fetch(`/api/validate-token?token=${encodeURIComponent(token)}`)
       .then((r) => r.json())
-      .then((data) => setStatus(data.valid ? 'valid' : 'invalid'))
+      .then((data) => {
+        if (data.valid) {
+          localStorage.setItem('reader_token', token);
+          setStatus('valid');
+        } else {
+          localStorage.removeItem('reader_token');
+          setStatus('invalid');
+        }
+      })
       .catch(() => setStatus('invalid'));
-  }, [token]);
+  }, [searchParams]);
 
   if (status === 'validating') {
     return (
@@ -41,13 +50,13 @@ export default function Reader() {
         </div>
         <h1 className="mb-3 font-serif text-3xl font-black text-white">Acesso Negado</h1>
         <p className="mb-8 max-w-sm text-sm leading-relaxed text-neutral-400">
-          Este link é inválido ou expirou. Verifique seu email de confirmação de compra ou entre em contato conosco.
+          Este link é inválido ou expirou. Acesse com o seu email de compra para recuperar o acesso.
         </p>
         <a
-          href="/"
+          href="/minha-conta"
           className="rounded-sm bg-gold px-8 py-3 text-xs font-black uppercase tracking-widest text-black transition hover:bg-white"
         >
-          Voltar ao Site
+          Acessar Minha Conta
         </a>
       </div>
     );
@@ -63,12 +72,21 @@ export default function Reader() {
             The Melted Cross
           </span>
         </div>
-        <a
-          href="/"
-          style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '3px', color: '#666', textDecoration: 'none' }}
-        >
-          ← Voltar ao Site
-        </a>
+        <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+          <a
+            href="/minha-conta"
+            style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '3px', color: '#555', textDecoration: 'none' }}
+            onClick={() => localStorage.removeItem('reader_token')}
+          >
+            Sair
+          </a>
+          <a
+            href="/"
+            style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '3px', color: '#666', textDecoration: 'none' }}
+          >
+            ← Voltar ao Site
+          </a>
+        </div>
       </div>
 
       {/* Flipbook embed — ocupa todo o espaço restante */}
