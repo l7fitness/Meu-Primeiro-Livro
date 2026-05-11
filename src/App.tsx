@@ -351,12 +351,15 @@ function Home() {
             <a href="#personagens" className="transition-colors hover:text-gold">Personagens</a>
             <a href="#arquivos" className="transition-colors hover:text-gold">Arquivos</a>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 md:gap-3">
             <a
               href="/minha-conta"
-              className="text-[9px] font-bold uppercase tracking-[0.2em] text-neutral-500 transition-colors hover:text-gold"
+              className="group relative flex items-center gap-2 overflow-hidden border border-white/10 bg-white/5 px-4 py-2 text-[9px] font-bold uppercase tracking-[0.2em] text-neutral-300 transition-all hover:border-gold/40 hover:bg-gold/10 hover:text-gold md:px-5 md:py-2.5 md:text-[10px]"
             >
-              Minha Conta
+              <BookOpen size={11} className="shrink-0" />
+              <span className="relative z-10 hidden sm:inline">Minha Conta</span>
+              <span className="relative z-10 sm:hidden">Ler</span>
+              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
             </a>
             <button 
               onClick={() => setIsModalOpen(true)}
