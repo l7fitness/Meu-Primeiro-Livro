@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import Reader from './Reader';
 import MyAccount from './MyAccount';
+import Preview from './Preview';
 import {
   BookOpen,
   Mail,
@@ -441,6 +442,13 @@ function Home() {
               <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
             </a>
           </div>
+
+          <a
+            href="/preview"
+            className="mt-2 text-[10px] font-bold uppercase tracking-[0.25em] text-neutral-500 underline-offset-4 transition-colors hover:text-gold hover:underline"
+          >
+            Ler Capítulo 1 Grátis →
+          </a>
         </motion.div>
 
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-50 md:bottom-16">
@@ -860,6 +868,7 @@ export default function App() {
       <Route path="/" element={<Home />} />
       <Route path="/ler" element={<Reader />} />
       <Route path="/minha-conta" element={<MyAccount />} />
+      <Route path="/preview" element={<Preview />} />
       <Route path="/privacidade" element={<PrivacyPolicy />} />
       <Route path="/termos" element={<TermsOfUse />} />
     </Routes>
