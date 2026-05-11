@@ -354,7 +354,7 @@ function Home() {
           <div className="flex items-center gap-3">
             <a
               href="/minha-conta"
-              className="hidden text-[9px] font-bold uppercase tracking-[0.2em] text-neutral-500 transition-colors hover:text-gold md:block"
+              className="text-[9px] font-bold uppercase tracking-[0.2em] text-neutral-500 transition-colors hover:text-gold"
             >
               Minha Conta
             </a>
